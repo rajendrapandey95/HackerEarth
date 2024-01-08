@@ -1,0 +1,64 @@
+// Input: n (number of nodes), m (number of queries), k (constant)
+//        color (array of node colors), graph (adjacency list representing the tree)
+// Output: Array of answers to queries
+
+initialize color array with length n
+initialize graph as an empty array of lists with length n
+
+function get(v, col):
+    if big[v]:
+        return M[v][col]
+    
+    ans = 0
+    for to in graph[v]:
+        if color[to] == col:
+            ans += 1
+    return ans
+
+function update(v, col):
+    for to in v2[v]:
+        if --M[to][color[v]] == 0:
+            M[to].removeKey(color[v])
+        M[to][col] += 1
+
+    color[v] = col
+
+function main():
+    read n, m, k
+    read color array
+    
+    for i from 1 to n - 1:
+        read parent
+        add i+1 to graph[parent]
+        add parent to graph[i+1]
+
+    S = 550
+
+    for i from 1 to n:
+        big[i] = size(graph[i]) >= S
+
+    for i from 1 to n:
+        for to in graph[i]:
+            if big[to]:
+                add to to v2[i]
+            else:
+                add to to v1[i]
+
+    for i from 1 to n:
+        if big[i]:
+            for to in graph[i]:
+                M[i][color[to]] += 1
+
+    ans = 0
+
+    for i from 1 to n:
+        ans += get(i, color[i])
+
+    ans /= 2
+
+    for i from 1 to m:
+        read pos, col
+        ans -= get(pos, color[pos])
+        update(pos, col)
+        ans += get(pos, color[pos])
+        print ans
