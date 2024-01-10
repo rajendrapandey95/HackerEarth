@@ -1,0 +1,28 @@
+function moji(hour, minute):
+    p = minute // 5
+    ans = hour
+
+    if hour >= 12:
+        hour -= 12
+        ans -= 1
+
+    if p > hour:
+        ans += 1
+    elif p == hour:
+        if minute % 5 >= minute / 12.0:
+            ans += 1
+
+    return ans
+
+function ali(hour, minute):
+    ans = hour
+
+    if hour >= 12:
+        hour -= 12
+        ans -= 1
+
+    return ans + (11 * minute >= hour * 60)
+
+if __name__ == "main":
+    hour, minute = input().split(':')
+    print(moji(int(hour), int(minute)))
