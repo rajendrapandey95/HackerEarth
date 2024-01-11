@@ -1,0 +1,25 @@
+Function doubleBeauty(n, k, a):
+    Sort array a in non-increasing order
+
+    Set ans to 0
+
+    For i from 0 to k - 1:
+        Add a[i] to ans
+
+    Multiply ans by 2
+
+    Return ans
+
+Function main():
+    Read t from input
+
+    For each test case from 1 to t:
+        Read n, k from input
+        Read array a of size n from input
+
+        result = doubleBeauty(n, k, a)
+
+        Print result to output
+
+If __name__ equals "__main__":
+    Call main function
