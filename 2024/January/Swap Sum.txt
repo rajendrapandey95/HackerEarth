@@ -1,0 +1,31 @@
+function swapSum(n, k, a, b):
+    v = []
+    ans = 0
+
+    for i from 0 to n-1:
+        if a[i] < b[i]:
+            v.append((b[i] - a[i], (b[i], a[i])))
+        else:
+            ans += a[i]
+
+    sort v in non-increasing order
+
+    for i from 0 to min(k, length of v) - 1:
+        ans += v[i].second.first
+
+    for i from k to length of v - 1:
+        ans += v[i].second.second
+
+    return ans
+
+
+function main():
+    t = read integer from input
+
+    for _ from 1 to t:
+        n, k = read integers from input
+        a = read array of integers from input
+        b = read array of integers from input
+
+        result = swapSum(n, k, a, b)
+        print result to output
