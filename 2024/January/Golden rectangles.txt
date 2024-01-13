@@ -1,0 +1,25 @@
+Procedure powm(base, exp, mod):
+    ans = 1
+    While exp is not zero:
+        If exp is odd:
+            ans = (ans * base) % mod
+        exp = exp divided by 2
+        base = (base * base) % mod
+    Return ans
+
+Procedure main():
+    Read n from input
+    ans = 0
+
+    For each i from 1 to n:
+        Read w, h from input
+        If 10 * w is greater than or equal to 16 * h and 10 * w is less than or equal to 17 * h:
+            Increment ans by 1
+        Else, if 10 * h is greater than or equal to 16 * w and 10 * h is less than or equal to 17 * w:
+            Increment ans by 1
+        Else:
+            Continue to the next iteration
+
+    Print ans
+
+Call main()
