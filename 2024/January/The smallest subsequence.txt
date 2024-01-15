@@ -1,0 +1,77 @@
+// Constants
+N = 1e6 + 14
+
+// Data structures
+g[N]: vector of vectors of integers
+pr[N]: vector of vectors of integers
+d[N]: array of integers
+par[N]: array of integers
+
+// Function to calculate prime factors and populate pr array
+populatePrimes():
+    for p from 2 to N:
+        if pr[p] is empty:
+            for i from p to N with step p:
+                if pr[i].size() < 2:
+                    pr[i].push_back(p)
+
+// Main function
+main():
+    set synchronization with stdio, tie cin with stdio
+
+    // Populate prime factors array
+    populatePrimes()
+
+    // Input
+    n = input()
+
+    // Process input numbers
+    for i from 0 to n - 1:
+        x = input()
+
+        // Check for perfect square
+        if squareRoot(x) * squareRoot(x) == x:
+            output 1
+
+        // Process numbers with two prime factors
+        if pr[x].size() == 2:
+            g[pr[x][0]].push_back(pr[x][1])
+            g[pr[x][1]].push_back(pr[x][0])
+
+        // Process numbers with one prime factor
+        else if pr[x].size() == 1:
+            g[pr[x][0]].push_back(1)
+            g[1].push_back(pr[x][0])
+
+    ans = INT_MAX
+
+    // Traverse prime numbers with only one prime factor
+    for p from 2 to sqrt(N):
+        if pr[p] is equal to vector {p}:
+            initialize array d with INT_MAX
+            create a queue q with element p
+            set d[p] to 0
+            set par[p] to -1
+
+            // Check for invalid configuration
+            if count(g[p].begin(), g[p].end(), par[p]) > 1:
+                output 2
+
+            // BFS traversal
+            while q is not empty:
+                v = q.front()
+                q.pop()
+
+                for u in g[v]:
+                    if d[u] > d[v] + 1:
+                        par[u] = v
+                        d[u] = d[v] + 1
+                        q.push(u)
+                    else if u is not equal to par[v]:
+                        ans = min(ans, d[v] + d[u] + 1)
+
+    // Output the result
+    if ans is equal to INT_MAX:
+        output -1
+    else:
+        output ans
