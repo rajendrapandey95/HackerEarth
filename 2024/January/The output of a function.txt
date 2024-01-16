@@ -1,0 +1,29 @@
+Function add(a, b):
+    return ((a % mod) + (b % mod)) % mod
+
+Function sub(a, b):
+    return ((a % mod) - (b % mod) + mod) % mod
+
+Function mul(a, b):
+    return ((a % mod) * (b % mod)) % mod
+
+Function binpow(a, b):
+    res = 1
+    while b > 0:
+        if b & 1:
+            res = mul(res, a)
+        a = mul(a, a)
+        b >>= 1
+    return res
+
+Function inverse(x):
+    return binpow(x, mod - 2)
+
+Input t
+For each test case from 1 to t:
+    Input p, q, r
+    n = sub(binpow(r, p * q), 1)
+    temp = sub(binpow(r, p), 1)
+    m = mul(binpow(r, p * q), temp)
+    res = mul(n, inverse(m))
+    Output res
