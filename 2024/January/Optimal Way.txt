@@ -1,0 +1,64 @@
+function gcd(a, b):
+    return a if b == 0 else gcd(b, a % b)
+
+function lcm(a, b):
+    return a * (b // gcd(a, b))
+
+function mod_exp(b, p, m):
+    x = 1
+    while p:
+        if p & 1:
+            x = (x * b) % m
+        b = (b * b) % m
+        p >>= 1
+    return x
+
+function invFermat(a, p):
+    return mod_exp(a, p - 2, p)
+
+function exp(b, p):
+    x = 1
+    while p:
+        if p & 1:
+            x *= b
+        b *= b
+        p >>= 1
+    return x
+
+function tostring(number):
+    return string representation of number
+
+function toint(s):
+    return integer representation of s
+
+function checker(state):
+    if state == visAll - 1:
+        return 0
+    if dp[state] is not -1:
+        return dp[state]
+    rounds = dp_bits[state] // 2
+    ans = 0
+    for i in range(n):
+        if (state & (1 << i)) == 0:
+            for j in range(i + 1, n):
+                if (state & (1 << j)) == 0:
+                    score = (rounds + 1) * (a[i] AND a[j])
+                    new_mask = state | (1 << i) | (1 << j)
+                    ans = max(ans, score + checker(new_mask))
+    dp[state] = ans
+    return ans
+
+function solve():
+    read n
+    read a
+    read k
+    visAll = 2 ^ n
+    dp_bits = array of size visAll + 2
+    for i from 0 to visAll + 2:
+        dp_bits[i] = count of set bits in i
+    dp = array of size visAll + 2, filled with -1
+    ans = checker(0)
+    print ans
+
+main:
+    call solve()
