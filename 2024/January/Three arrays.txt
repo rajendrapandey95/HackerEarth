@@ -1,0 +1,43 @@
+function sum_mod(a, b, m):
+    a = a + b
+    if a >= m:
+        a = a - m
+    if a < 0:
+        a = a + m
+    return a
+
+function mult_mod(a, b, m):
+    return (a * b) % m
+
+function solve():
+    n, m, k = read_integers()
+    a, b, c = arrays of size n
+    l, r = arrays of size 4
+
+    for i from 1 to n:
+        a[i], b[i], c[i] = read_integers()
+
+    for i from 1 to 3:
+        l[i], r[i] = read_integers()
+
+    for x from l[1] to min(r[1], l[1] + m - 1):
+        for y from l[2] to min(r[2], l[2] + m - 1):
+            for z from l[3] to min(r[3], l[3] + m - 1):
+                cnt = 0
+                for i from 1 to n:
+                    if sum_mod(sum_mod(mult_mod(a[i], x, m), mult_mod(b[i], y, m)), m - mult_mod(c[i], z, m)) == 0:
+                        cnt = cnt + 1
+                    if cnt > k:
+                        break
+                if cnt == k:
+                    print x, y, z
+                    exit()
+
+    print "-1"
+
+function main():
+    t = 1
+    # t = read_integer()
+    while t > 0:
+        solve()
+        t = t - 1
