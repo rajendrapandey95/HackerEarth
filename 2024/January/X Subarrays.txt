@@ -1,0 +1,33 @@
+Function solve():
+    Read n, x from input
+    Read list a of n integers from input
+
+    Initialize ans to 0
+
+    For i from 0 to n - 1:
+        Set l to i
+        Set r to n - 1
+        Set maxm to -1
+
+        While l <= r:
+            Set mid to l + (r - l) // 2
+
+            If a[i] + a[mid] <= x:
+                Set l to mid + 1
+                Set maxm to max(maxm, mid)
+            Else:
+                Set r to mid - 1
+
+        If maxm is not -1:
+            Increment ans by (maxm - i + 1)
+
+    Print ans
+
+
+Function main():
+    Read t from input
+
+    For _ in range(t):
+        Call solve()
+
+Main()
