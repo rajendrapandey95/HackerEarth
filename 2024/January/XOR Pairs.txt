@@ -1,0 +1,20 @@
+Function solve():
+    Read integer n
+    Initialize an empty map freq
+    Initialize ans to 0
+
+    For i from 1 to n:
+        Read integer x
+        ans += freq[x XOR i]
+        Increment freq[x XOR i]
+
+    Print ans
+
+Function main():
+    Initialize t
+    Read integer t
+
+    Repeat t times:
+        Call solve()
+
+Main()
