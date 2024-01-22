@@ -1,0 +1,20 @@
+Function main():
+    test = InputInteger()  # Read the number of test cases
+
+    while test > 0:
+        a, b, n = InputIntegers()  # Read values for a, b, and n
+
+        if n % 3 == 1:
+            Output(a)
+        elif n % 3 == 2:
+            Output(b)
+        else:
+            xor_ = a XOR b
+            bits = Log2(Max(a, b)) + 1
+            all_ones = (1 << bits) - 1
+            xnor_ = all_ones XOR xor_
+            Output(Max(xor_, xnor_))
+
+        test = test - 1
+
+End Function
