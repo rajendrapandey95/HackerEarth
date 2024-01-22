@@ -1,0 +1,68 @@
+Function SegTree:
+    Initialize a structure SegTree with attributes n and t
+    Create a constructor that takes n as a parameter and initializes t with a vector of size 2n + 5
+
+    Function add(i, x):
+        Set t[n + i] to x
+
+    Function build():
+        Iterate from n - 1 to 1:
+            Set t[i] to t[i << 1] + t[i << 1 | 1]
+
+    Function modify(p, value):
+        Set t[p + n] to value
+        While p is greater than 1:
+            Set t[p >> 1] to t[p] + t[p ^ 1]
+            Update p to p >> 1
+
+    Function query(l, r):
+        Increment r
+        Set res to 0
+        While l is less than r:
+            If l is odd, increment res by t[l]
+            If r is odd, decrement r and increment res by t[r]
+            Update l to l >> 1 and r to r >> 1
+        Return res
+
+
+Function solve():
+    Read integers n and q from input
+
+    Create a vector a of size n
+    Read n integers into vector a
+
+    Initialize a SegTree st with n + 5
+    Call st.build()
+
+    Create an empty vector of pairs v
+    Create an empty vector of pairs Q
+
+    For i from 0 to n - 1:
+        Append the pair (a[i], i) to v
+    Sort v in non-ascending order
+
+    For i from 0 to q - 1:
+        Read integers l and r from input
+        Append the pair (a[r], (l, i)) to Q
+    Sort Q in non-ascending order
+
+    Create a vector arr of size q
+    Set ind to 0
+
+    For i from 0 to q - 1:
+        While ind is less than n and v[ind].first is greater than Q[i].first:
+            Call st.modify(v[ind].second, v[ind].first)
+            Increment ind by 1
+        Set arr[Q[i].second.second] to st.query(0, Q[i].second.first)
+
+    For i from 0 to q - 1:
+        Print arr[i] followed by a space
+
+    Print a newline
+
+
+Function main():
+    Read integer T from input
+
+    For tc from 1 to T:
+        Call solve()
