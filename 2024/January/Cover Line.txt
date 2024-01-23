@@ -1,0 +1,61 @@
+Function solve():
+    n = ReadInteger()  # Read the value of 'n'
+    q = ReadInteger()  # Read the value of 'q'
+    v = []  # Initialize an empty list to store the queries
+    
+    # Read the queries and store them in the list 'v'
+    for i = 1 to q:
+        l = ReadInteger()  # Read the value of 'l'
+        r = ReadInteger()  # Read the value of 'r'
+        a = ReadInteger()  # Read the value of 'a'
+        v.append((l, r, a))  # Add the tuple (l, r, a) to the list 'v'
+    
+    Sort the list 'v' based on the first element of each tuple
+    
+    ans = -1  # Initialize 'ans' to -1
+    lo = 1  # Initialize 'lo' to 1
+    hi = 1e12  # Initialize 'hi' to 1e12
+    
+    # Binary search loop
+    while lo <= hi:
+        mid = (lo + hi) // 2  # Calculate the middle value
+        
+        f = 0  # Initialize 'f' to 0
+        l = 1e18  # Initialize 'l' to a large value
+        r = 0  # Initialize 'r' to 0
+        c = 0  # Initialize 'c' to 0
+        
+        # Iterate through each query in 'v'
+        for i in v:
+            if i[2] > mid:
+                Continue to the next iteration  # Skip the current query if a > mid
+            l = Min(l, i[0])  # Update 'l' with the minimum value
+           
+            # Check if it's the first query
+            if f == 0:
+                f = 1  # Set 'f' to 1
+                r = i[1]  # Update 'r' with the value of the right end
+            else:
+                # Check if there is a gap between the current query and the previous one
+                if (i[0] - r) > 1:
+                    c = 1  # Set 'c' to 1
+                    Break out of the loop  # Exit the loop
+                
+                r = Max(r, i[1])  # Update 'r' with the maximum value
+        
+        # Check the value of 'c'
+        if c:
+            lo = mid + 1  # Update 'lo' for the next iteration
+            Continue to the next iteration  # Skip the rest of the current iteration
+        
+        # Check if 'l' and 'r' cover the entire range [1, n]
+        if l == 1 and r == n:
+            ans = mid  # Update 'ans' with the current 'mid'
+            hi = mid - 1  # Update 'hi' for the next iteration
+        else:
+            lo = mid + 1  # Update 'lo' for the next iteration
+    
+    Print ans  # Output the final result
+
+# Call the solve function to execute the algorithm
+solve()
