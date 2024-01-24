@@ -1,0 +1,53 @@
+function issafe(row, col, ar, n):
+    # Column check
+    for k from 0 to row - 1:
+        if ar[k][col] == 1:
+            return false
+
+    # Upper right diagonal
+    k = row
+    l = col
+    while k >= 0 and l < n:
+        if ar[k][l] == 1:
+            return false
+        k = k - 1
+        l = l + 1
+
+    # Upper left diagonal
+    k = row
+    l = col
+    while k >= 0 and l >= 0:
+        if ar[k][l] == 1:
+            return false
+        k = k - 1
+        l = l - 1
+
+    return true
+
+function solve(row, ar, n):
+    if row >= n:
+        return true
+
+    for i from 0 to n - 1:
+        if issafe(row, i, ar, n):
+            ar[row][i] = 1
+            if solve(row + 1, ar, n):
+                return true
+            ar[row][i] = 0
+
+    return false
+
+function print_board(ar, n):
+    for i from 0 to n - 1:
+        for j from 0 to n - 1:
+            output ar[i][j] + " "
+        output newline
+
+function main():
+    input n
+    ar = create a 2D array of size n x n and initialize with zeros
+
+    if solve(0, ar, n):
+        print_board(ar, n)
+    else:
+        output "Not possible"
