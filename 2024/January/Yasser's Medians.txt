@@ -1,0 +1,85 @@
+// Define constants
+const int N = 1 << 18
+const int MOD = 1e9 + 7
+
+// Define a Binary Indexed Tree (BIT) structure
+struct BIT:
+    int tree[N]
+
+    function init():
+        set all elements of tree to 0
+
+    function add(pos, val):
+        increment tree elements from pos to N by val
+
+    function get(pos):
+        sum all elements in tree from 0 to pos
+
+    function find(t):
+        initialize st to 0
+        for each sz in decreasing powers of 2:
+            if tree[st + sz - 1] < t:
+                decrease t by tree[st + sz - 1]
+                increment st by sz
+        return st
+
+// Define a MultiSet structure using BIT
+struct MultiSet:
+    BIT bit
+
+    constructor MultiSet():
+        initialize bit using init and add to set -1 at position 0
+
+    function insert(val):
+        add 1 to bit at position val
+
+    function erase(val):
+        subtract 1 from bit at position val
+
+    function count(val):
+        return get value from bit at position val minus get value from bit at position (val - 1)
+
+    function size():
+        return get value from bit at position N - 1 plus 1
+
+    function at(ind):
+        return find position in bit with value ind
+
+// Define a function for modular exponentiation
+function pow_MOD(n, m):
+    initialize ans to 1
+    while m is not 0:
+        if m is odd:
+            multiply ans by n and take modulo MOD
+        square n and take modulo MOD
+        right shift m by 1
+    return ans
+
+// Main function
+function main():
+    set ios_base to not synchronize with standard C I/O
+    set cin.tie to null
+
+    read integers n, k from input
+
+    initialize dq as a deque
+    create an instance of MultiSet called mySet
+
+    for i from 0 to k - 1:
+        read integer cur from input
+        append cur to dq
+        insert cur into mySet
+
+    initialize an empty vector called med
+
+    for i from k to n - 1:
+        append at((k + 1) / 2 - 1) from mySet to med
+        erase front element from dq in mySet
+        pop front element from dq
+        read integer cur from input
+        append cur to dq
+        insert cur into mySet
+
+    append at((k + 1) / 2 - 1) from mySet to med
+
+    print pow_MOD of n and maximum element from med
