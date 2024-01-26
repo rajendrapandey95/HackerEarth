@@ -1,0 +1,20 @@
+Read t  // Number of test cases
+
+for each test case in range(t):
+    Read n  // Length of the string
+    Read s  // The string
+
+    Initialize an empty dictionary m
+
+    // Count the occurrences of each character in the string
+    for each character x in s:
+        Increment m[x] by 1
+
+    Initialize o to 0  // Variable to count characters with odd occurrences
+
+    // Count the number of characters with odd occurrences
+    for each value x in m.values():
+        if x is odd:
+            Increment o by 1
+
+    Print max(0, o - 1)  // Print the result for the current test case
