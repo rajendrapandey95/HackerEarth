@@ -1,0 +1,73 @@
+// Function to solve the problem for each test case
+void solve() {
+    // Input: Read the values of n and m
+    int n, m;
+    cin >> n >> m;
+
+    // Input: Read the arrays a and b
+    vector<int> a(n), b(m);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    for(int i = 0; i < m; i++) {
+        cin >> b[i];
+    }
+
+    // Calculate the sum of array 'a' and subtract the sum of array 'b'
+    int sum = 0;
+    for(auto i : a) {
+        sum += i;
+    }
+    for(auto i : b) {
+        sum -= i;
+    }
+
+    // If the sums are not equal, print -1 and return
+    if(sum != 0) {
+        cout << -1 << endl;
+        return;
+    }
+
+    // Initialize variables for counting, and pointers for arrays 'a' and 'b'
+    int count = 0, x = 0, y = 0;
+    int i = 0, j = 0;
+
+    // Loop until either pointer reaches the end of array 'a' or 'b'
+    while(i < n || j < m) {
+        // If sum of current elements in 'a' is greater than sum in 'b'
+        if(x > y) {
+            // Add current element in 'b' to the sum in 'y' and move pointer 'j'
+            y = y + b[j];
+            j = j + 1;
+        } else {
+            // Add current element in 'a' to the sum in 'x' and move pointer 'i'
+            x = x + a[i];
+            i = i + 1; 
+        }
+
+        // If sum in 'a' is equal to sum in 'b', reset sums and increment count
+        if(x == y) {
+            x = 0, y = 0;
+            count = count + 1;
+        }
+    }
+    
+    // Output: Print the count
+    cout << count << endl;
+}
+
+// Main function
+int main() {
+    // Input: Read the number of test cases
+    int T;
+    cin >> T;
+
+    // Loop through each test case
+    for(int tc = 1; tc <= T; tc++){
+        // Call the solve function for each test case
+        solve();
+    }
+
+    // Exit
+    return 0;
+}
