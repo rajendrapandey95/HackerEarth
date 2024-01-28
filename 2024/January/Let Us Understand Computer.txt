@@ -1,0 +1,22 @@
+function main():
+    a = array of long long with size 1000005, initialized with zeros
+
+    for i from 1 to 1000000:
+        r = 1
+
+        for j from 1 to 20:
+            r = r * 2
+
+            if r > i:
+                break
+
+        z = (i * r) - 1
+        a[i] = z
+
+    t = read integer from input
+    for k from 1 to t:
+        x = read integer from input
+        id = binary_search(a, x, 1, 1000000)
+        print (x - id + 1)
+
+main()
