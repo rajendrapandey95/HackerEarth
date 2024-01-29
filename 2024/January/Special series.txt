@@ -1,0 +1,82 @@
+// Define a function to calculate the greatest common divisor (gcd)
+function gcd(a, b):
+    while b is not equal to 0:
+        temp = b
+        b = a mod b
+        a = temp
+    return a
+
+// Define a matrix structure
+struct Mat:
+    MAX_MAT = 2
+    a[MAX_MAT][MAX_MAT]
+
+    // Constructor to initialize matrix, optionally as an identity matrix
+    Mat(emp = false):
+        initialize a[MAX_MAT][MAX_MAT] to zero
+        if emp is true:
+            set diagonal elements to 1
+
+    // Overloaded indexing operators for matrix
+    const operator[](i):
+        return a[i]
+
+    operator[](i):
+        return a[i]
+
+    // Overloaded addition operator for matrices
+    operator+(b):
+        ret = new Mat
+        for i from 0 to MAX_MAT:
+            for j from 0 to MAX_MAT:
+                ret[i][j] = a[i][j] + b[i][j]
+        return ret
+
+    // Overloaded multiplication operator for matrices
+    operator*(b):
+        ret = new Mat
+        for k from 0 to MAX_MAT:
+            for i from 0 to MAX_MAT:
+                for j from 0 to MAX_MAT:
+                    ret[i][j] = (ret[i][j] + (ll) a[i][k] * b[k][j]) % MOD
+        return ret
+
+    // Matrix exponentiation
+    operator^(b):
+        a_copy = this
+        ret = new Mat(emp = true)
+        while b is not 0:
+            if b is odd:
+                ret = ret * a_copy
+            a_copy = a_copy * a_copy
+            b = b / 2
+        return ret
+
+// Main program
+function main():
+    ios::sync_with_stdio(0)
+    cin.tie(0)
+
+    // Initialize base Fibonacci matrix
+    base_fib = new Mat
+    base_fib[0][0] = base_fib[0][1] = base_fib[1][0] = 1
+
+    // Input number of test cases
+    cin >> t
+
+    // Loop over test cases
+    while t is not 0:
+        // Input n and m
+        n, m = input()
+
+        // Calculate g as the remainder of dividing the decimal representation of n by m
+        g = 0
+        for each character c in n:
+            g = (g * 10ll + c - '0') % m
+
+        // Calculate the greatest common divisor of g and m
+        g = gcd(g, m)
+
+        // Print the value at position [0][1] after raising base_fib to the power of g
+        print (base_fib ^ g)[0][1]
+        t = t - 1
