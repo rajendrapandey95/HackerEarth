@@ -1,0 +1,103 @@
+function DFS(u, p):
+    _p = p
+    i = 0
+    temp = Guards[u]
+
+    while _p != -1:
+        par[u][i] = _p
+        vals[u][i] = temp
+
+        temp += vals[_p][i]
+        _p = par[_p][i]
+
+        i++
+
+    for v in tree[u]:
+        if v == p:
+            continue
+
+        DFS(v, u)
+
+
+function main():
+    test = input()
+
+    assert test >= 1 && test <= 1e5
+
+    totalN = 0
+    totalQ = 0
+
+    while test > 0:
+        N = input()
+
+        assert N >= 3 && N <= 1e6
+        totalN += N
+
+        tree = array of vectors of integers
+        initialize tree with N empty vectors
+
+        for i in range(N - 1):
+            u, v = input()
+
+            assert 1 <= u <= N
+            assert 1 <= v <= N
+
+            u--, v--
+
+            tree[u].push_back(v)
+            tree[v].push_back(u)
+
+        Guards = array of integers
+
+        for e in Guards:
+            e = input()
+            assert e >= 1 && e <= 1e9
+
+        l = log2(N) + 2
+
+        par = 2D array of integers with dimensions N x l initialized to -1
+        vals = 2D array of integers with dimensions N x l initialized to 0
+
+        DFS(0, -1)
+
+        Q = input()
+
+        assert Q >= 1 && Q <= 1e6
+        totalQ += Q
+
+        while Q > 0:
+            u, x = input()
+
+            assert 1 <= u <= N
+            assert 1 <= x <= 1e15
+
+            u--
+
+            while x > 0 and u:
+                p = -1
+                tmp = 0
+
+                for i in range(l):
+                    if par[u][i] == -1:
+                        break
+                    if vals[u][i] >= x:
+                        break
+
+                    p = par[u][i]
+                    tmp = vals[u][i]
+
+                if p == -1:
+                    break
+
+                x -= tmp
+                u = p
+
+            print(u + 1)
+            Q--
+
+        test--
+
+    assert totalN <= 1e6
+    assert totalQ <= 1e6
+
+main()
