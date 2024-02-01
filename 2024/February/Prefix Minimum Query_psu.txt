@@ -1,0 +1,61 @@
+function solve():
+    read n, q
+    initialize vector a of size n
+    for i from 0 to n - 1:
+        read a[i]
+
+    initialize vector v of size n with all elements set to n
+    initialize stack s
+
+    for i from 0 to n - 1:
+        if stack s is empty:
+            push i onto stack s
+        else:
+            while stack s is not empty and a[i] < a[top of stack s]:
+                set v[top of stack s] = i
+                pop top element from stack s
+            push i onto stack s
+
+    initialize 2D array P of size N x LG with all elements set to n
+    initialize array arr of size n
+    initialize array sum of size n
+    initialize graph g of size N
+
+    for i from 0 to LG - 1:
+        set P[0][i] = n
+
+    for i from 0 to n - 1:
+        add v[i] to g[i]
+        add i to g[v[i]]
+
+    for i from 0 to n - 1:
+        set arr[i] = (v[i] - i) * a[i]
+
+    initialize queue Q
+    enqueue (n, (n, 0)) into Q
+
+    while Q is not empty:
+        dequeue element st from Q
+        set sum[st.F] = arr[st.F] + st.S.S
+        set P[st.F][0] = st.S.F
+
+        for i from 1 to LG - 1:
+            set P[st.F][i] = P[P[st.F][i - 1]][i - 1]
+
+        for each neighbor i in g[st.F]:
+            if i is not equal to st.S.F:
+                enqueue (i, (st.F, st.S.S + arr[st.F])) into Q
+
+    for each query in range q:
+        read l, r
+        set l = l - 1, r = r - 1
+        set ans = sum[l]
+        set node = l
+
+        for i from LG - 1 to 0:
+            if P[node][i] <= r:
+                set node = P[node][i]
+
+        set c = (r - node + 1) * a[node]
+        set ans = ans - sum[node] + c
+        print ans
