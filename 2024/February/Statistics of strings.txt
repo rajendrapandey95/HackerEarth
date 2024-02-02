@@ -1,0 +1,114 @@
+class Solution:
+    function __init__():
+        debug_flag = False
+
+    function debug_print(...args):
+        if debug_flag:
+            _print(_split(','.join(map(str, args)), ','))
+
+    function _split(s, c):
+        v = s.split(c)
+        return v
+
+    function _print(it):
+        if not it:
+            return
+        name = it[0].strip() if it[0][0] == ' ' else it[0]
+        print(f"{name} = {it[1]} ", end="")
+        _print(it[2:])
+
+    function add(a, b):
+        return (a + b) % mod
+
+    function mul(a, b):
+        return (a * b) % mod
+
+    function get_k():
+        i = len - 1
+        if i == 0:
+            return 0
+        k = p[i - 1]
+        while k > 0 and str[i] != str[k]:
+            k = p[k - 1]
+        if str[i] == str[k]:
+            k += 1
+        return k
+
+    function get_c(cur_alp):
+        i = len - 1
+        if i == 0:
+            return -1
+
+        if p[i] != 0:
+            return str[p[i] - 1]
+
+        used = [False] * cur_alp
+        k = p[i - 1]
+        while True:
+            used[str[k]] = True
+            if k == 0:
+                break
+            k = p[k - 1]
+
+        for c in range(cur_alp):
+            if not used[c]:
+                return c
+        return -1
+
+    function get_used_cnt(cur_alp):
+        if len == 1:
+            return 0
+        ret = 0
+        for i in range(cur_alp):
+            if used[i]:
+                ret += 1
+        return ret
+
+    function rec(cur_alp, cur_coef, cur_mx):
+        prev_p = -1 if len == 0 else p[len - 1]
+        last = n - len
+
+        if cur_mx >= prev_p + last:
+            cur_ans = mul(cur_coef, cur_mx)
+            cur_ans = mul(cur_ans, pow_alp[last])
+            gl_ans = add(gl_ans, cur_ans)
+            return
+
+        len += 1
+        for new_p in range(prev_p + 2):
+            p[len - 1] = new_p
+
+            new_alp = cur_alp
+            c = get_c(new_alp)
+            if c == -1:
+                c = new_alp
+                new_alp += 1
+            str[len - 1] = c
+
+            k = get_k()
+            if k == new_p and new_alp <= alp:
+                new_coef = cur_coef
+                if new_p == 0:
+                    used_cnt = get_used_cnt(cur_alp)
+                    new_coef = mul(new_coef, alp - used_cnt)
+                rec(new_alp, new_coef, max(cur_mx, new_p))
+        len -= 1
+
+    function solve(n, alp, mod):
+        this.n = n
+        this.alp = alp
+        this.mod = mod
+
+        pow_alp = [1] * 25
+        for i in range(1, 25):
+            pow_alp[i] = mul(pow_alp[i - 1], alp)
+
+        len = 0
+        p = [0] * 25
+        str = [0] * 25
+        gl_ans = 0
+        used = [False] * 25
+
+        debug_print(n, alp, mod)
+        rec(0, 1, 0)
+        return gl_ans
