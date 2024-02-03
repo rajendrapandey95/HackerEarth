@@ -1,0 +1,61 @@
+FUNCTION Dsu():
+    CREATE an object with attribute par as an array of integers
+    
+    FUNCTION root(v):
+        IF par[v] < 0 THEN
+            RETURN v
+        ELSE
+            SET par[v] TO root(par[v])
+            RETURN par[v]
+    
+    FUNCTION fri(v, u):
+        RETURN root(v) EQUALS root(u)
+    
+    FUNCTION merge(v, u):
+        IF (v = root(v)) EQUALS (u = root(u)) THEN
+            RETURN 0
+        ENDIF
+        par[u] += par[v]
+        par[v] = u
+        RETURN 1
+
+CREATE an object dsu using the Dsu() constructor
+
+DECLARE integers n, m, v[maxn], u[maxn], a[maxn]
+
+FUNCTION main():
+    READ n, m FROM input
+    FOR i FROM 0 TO m - 1 DO:
+        READ v[i], u[i] FROM input
+        v[i]--, u[i]--
+    ENDFOR
+
+    FOR i FROM 0 TO n - 1 DO:
+        READ a[i] FROM input
+    ENDFOR
+
+    READ s, e FROM input
+    s--, e--
+
+    DECLARE integers lo = -1, hi = 1e6
+
+    WHILE hi - lo > 1 DO:
+        dsu = Dsu()
+        DECLARE integer mid = (lo + hi) / 2
+
+        FOR i FROM 0 TO m - 1 DO:
+            IF ABS(a[v[i]] - a[u[i]]) <= mid THEN
+                merge(v[i], u[i]) IN dsu
+            ENDIF
+        ENDFOR
+
+        IF fri(s, e) THEN
+            hi = mid
+        ELSE
+            lo = mid
+        ENDIF
+    ENDWHILE
+
+    OUTPUT hi TO output
+
+CALL main()
