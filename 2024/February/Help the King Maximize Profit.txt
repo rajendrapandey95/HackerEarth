@@ -1,0 +1,99 @@
+FUNCTION calcIntro(pos, introMask, extroMask):
+    r := pos / m
+    c := pos - (r * m)
+    ans := 0
+
+    IF r > 0 THEN
+        IF introMask & (1 << (m - 1)) THEN
+            ans -= 180
+        END IF
+        IF extroMask & (1 << (m - 1)) THEN
+            ans -= 30
+        END IF
+    END IF
+
+    IF c > 0 THEN
+        IF introMask & 1 THEN
+            ans -= 180
+        END IF
+        IF extroMask & 1 THEN
+            ans -= 30
+        END IF
+    END IF
+
+    RETURN ans
+
+END FUNCTION
+
+
+FUNCTION calcExtro(pos, introMask, extroMask):
+    r := pos / m
+    c := pos - (r * m)
+    ans := 0
+
+    IF r > 0 THEN
+        IF introMask & (1 << (m - 1)) THEN
+            ans -= 30
+        END IF
+        IF extroMask & (1 << (m - 1)) THEN
+            ans += 120
+        END IF
+    END IF
+
+    IF c > 0 THEN
+        IF introMask & 1 THEN
+            ans -= 30
+        END IF
+        IF extroMask & 1 THEN
+            ans += 120
+        END IF
+    END IF
+
+    RETURN ans
+
+END FUNCTION
+
+
+FUNCTION checker(pos, introLeft, extroLeft, introMask, extroMask):
+    IF pos >= (n * m) THEN
+        RETURN 0
+    END IF
+
+    IF dp[pos][introLeft][extroLeft][introMask][extroMask] != -1 THEN
+        RETURN dp[pos][introLeft][extroLeft][introMask][extroMask]
+    END IF
+
+    newIntroMask := (introMask << 1) & 63
+    newExtroMask := (extroMask << 1) & 63
+    ans := checker(pos + 1, introLeft, extroLeft, newIntroMask, newExtroMask)
+
+    IF introLeft THEN
+        ans := MAX(ans, 360 + checker(pos + 1, introLeft - 1, extroLeft, newIntroMask + 1, newExtroMask) + calcIntro(pos, introMask, extroMask))
+    END IF
+
+    IF extroLeft THEN
+        ans := MAX(ans, 120 + checker(pos + 1, introLeft, extroLeft - 1, newIntroMask, newExtroMask + 1) + calcExtro(pos, introMask, extroMask))
+    END IF
+
+    dp[pos][introLeft][extroLeft][introMask][extroMask] := ans
+    RETURN ans
+
+END FUNCTION
+
+
+FUNCTION solve():
+    READ n, m, x, y
+    INITIALIZE dp with -1
+    ans := checker(0, x, y, 0, 0)
+    PRINT ans
+
+END FUNCTION
+
+
+FUNCTION main():
+    INITIALIZE ios_base
+    READ n, m, x, y
+    CALL solve()
+    RETURN 0
+
+END FUNCTION
