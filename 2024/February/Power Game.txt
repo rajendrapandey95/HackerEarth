@@ -1,0 +1,108 @@
+class Solution:
+    function __init__(self):
+        self.MOD = 10^9 + 7
+        self.MOD2 = 998244353
+        self.PI = 2 * acos(0.0)
+
+    function gcd(self, a, b):
+        return a if b == 0 else self.gcd(b, a % b)
+
+    function lcm(self, a, b):
+        return a * (b // self.gcd(a, b))
+
+    function mod_exp(self, b, p, m):
+        x = 1
+        while p:
+            if p & 1:
+                x = (x * b) % m
+            b = (b * b) % m
+            p >>= 1
+        return x
+
+    function invFermat(self, a, p):
+        return self.mod_exp(a, p - 2, p)
+
+    function exp(self, b, p):
+        x = 1
+        while p:
+            if p & 1:
+                x = (x * b)
+            b = (b * b)
+            p >>= 1
+        return x
+
+    function dfs(self, v, p, edges, visited, tin, low, timer, bridgelen):
+        visited[v] = True
+        tin[v] = low[v] = timer[0]
+
+        for to in edges[v]:
+            if to[0] == p:
+                continue
+            if visited[to[0]]:
+                low[v] = min(low[v], tin[to[0]])
+            else:
+                self.dfs(to[0], v, edges, visited, tin, low, timer, bridgelen)
+                low[v] = min(low[v], low[to[0]])
+
+                if low[to[0]] > tin[v]:
+                    bridgelen.append(to[1])
+
+    function find_bridges(self, n, edges):
+        visited = [False] * n
+        tin = [-1] * n
+        low = [-1] * n
+        timer = [0]
+        bridgelen = []
+
+        for i in range(n):
+            if not visited[i]:
+                self.dfs(i, -1, edges, visited, tin, low, timer, bridgelen)
+
+        return bridgelen
+
+    function solve(self):
+        n, m = read integers from input
+        edges = create list of empty lists of size 3 * 10^5 + 5
+        bridgelen = empty list
+
+        me = read list of integers from input
+
+        for _ in range(m):
+            x, y = read integers from input
+            x -= 1
+            y -= 1
+            edges[x].append((y, me[_]))
+            edges[y].append((x, me[_]))
+
+        bridgelen = self.find_bridges(n, edges)
+        sort bridgelen in ascending order
+
+        minm1, minm2 = 0, 0
+        ok = 0
+
+        for x in bridgelen:
+            if not ok:
+                minm1 += x
+            else:
+                minm2 += x
+            ok ^= 1
+
+        maxm1, maxm2 = 0, 0
+        ok = 0
+
+        reverse bridgelen
+
+        for x in bridgelen:
+            if not ok:
+                maxm1 += x
+            else:
+                maxm2 += x
+            ok ^= 1
+
+        maxm1 = max(maxm1, maxm2)
+        minm1 = min(minm1, minm2)
+
+        print maxm1, minm1
+
+if __name__ == "__main__":
+    Solution().solve()
