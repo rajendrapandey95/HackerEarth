@@ -1,0 +1,44 @@
+Function cost(id, a, y, b, graph, n):
+    Initialize an array 'dist' with size 'n' and set all values to infinity
+    Create an empty queue 'q'
+    For each index 'i' from 0 to 'id' inclusive:
+        Add vertex 'a[i]' to queue 'q'
+        Set 'dist[a[i]]' to 0
+    While queue 'q' is not empty:
+        Pop vertex 'u' from the front of queue 'q'
+        For each neighbor 'v' of 'u' in graph:
+            If 'dist[v]' is infinity:
+                Set 'dist[v]' to 'dist[u]' + 1
+                Add vertex 'v' to queue 'q'
+    Initialize variable 'res' to 0
+    For each index 'i' from 0 to 'y - 1' inclusive:
+        Add 'dist[b[i]]' to 'res'
+    Return 'res'
+
+Function reachQuickly(n, m, edges, x, a, y, b):
+    Create an empty graph 'graph' with 'n' vertices
+    For each edge (u, v) in 'edges':
+        Add 'v' to the adjacency list of 'u'
+        Add 'u' to the adjacency list of 'v'
+    Calculate the minimum cost 'mn' using the 'cost' function with 'id' set to 'x - 1'
+    Initialize variables 'l' and 'r' to 0 and 'x - 1' respectively
+    While 'l' is less than 'r':
+        Calculate the middle index 'mid' as the average of 'l' and 'r'
+        If the cost of prefix 'a' ending at 'mid' equals 'mn':
+            Update 'r' to 'mid'
+        Else:
+            Update 'l' to 'mid + 1'
+    Return 'l'
+
+Main:
+    Read the number of test cases 't'
+    Repeat 't' times:
+        Read integers 'n' and 'm'
+        Initialize 'edges' as an empty list
+        Repeat 'm' times:
+            Read integers 'u' and 'v'
+            Append [u, v] to 'edges'
+        Read integers 'x' and 'y'
+        Read integers into list 'a' of size 'x'
+        Read integers into list 'b' of size 'y'
+        Print the result of 'reachQuickly(n, m, edges, x, a, y, b)'
