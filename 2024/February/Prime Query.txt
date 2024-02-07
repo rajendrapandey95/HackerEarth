@@ -1,0 +1,56 @@
+Algorithm:
+
+    Define a function solve() to handle each test case.
+    Read the value of n representing the size of the array.
+    Read the array a of size n.
+    Initialize arrays zero and one of size n with all elements set to 0.
+    Calculate the cumulative sums of zeros and ones in the array a and store them in arrays zero and one.
+    Read the value of q representing the number of queries.
+    For each query, read the values of l and r, representing the range of indices.
+    Adjust l and r to be zero-indexed.
+    Calculate the number of subarrays in the range [l, r] with all zeros or all ones, or a mix of zeros and ones, and print the result.
+    Repeat steps 7-9 for all queries.
+
+
+function solve():
+    n = read_integer()  // Read the size of the array
+    a = read_array_of_integers(n)  // Read the array of integers
+    
+    zero = array of size n, initialized with zeros
+    one = array of size n, initialized with zeros
+    
+    // Calculate cumulative sums of zeros and ones
+    for i from 0 to n-1:
+        if a[i] == 0:
+            zero[i] = 1
+        if a[i] == 1:
+            one[i] = 1
+        if i > 0:
+            zero[i] += zero[i - 1]
+            one[i] += one[i - 1]
+    
+    q = read_integer()  // Read the number of queries
+    for each query in range q:
+        l, r = read_two_integers()  // Read the range of indices
+        l -= 1  // Adjust l to be zero-indexed
+        r -= 1  // Adjust r to be zero-indexed
+        
+        // Calculate the number of subarrays with all zeros, all ones, or a mix of zeros and ones
+        x = zero[r]
+        if l > 0:
+            x -= zero[l - 1]
+
+        y = one[r]
+        if l > 0:
+            y -= one[l - 1]
+
+        length = r - l + 1
+        c = (length * (length - 1)) / 2
+        c -= (x * (x - 1)) / 2
+        c -= x * y
+        
+        print(c)  // Print the result
+
+T = read_integer()  // Read the number of test cases
+for each test case in range T:
+    solve()  // Call the solve function for each test case
