@@ -1,0 +1,80 @@
+// Define constants
+const int N = 1000005
+const int LG = 22
+
+// Declare global arrays and vectors
+int lvl[N], P[N][LG]
+vector<int> g[N]
+
+// Function to clear arrays and vectors
+function clear(int n):
+    for i from 0 to n:
+        lvl[i] = 0
+        g[i].clear()
+        for j from 0 to LG:
+            P[i][j] = -1
+
+// Depth-first search function
+function dfs(u, par):
+    lvl[u] = 1 + lvl[par]
+    P[u][0] = par
+    for i from 1 to LG:
+        if P[u][i - 1] != -1:
+            P[u][i] = P[P[u][i - 1]][i - 1]
+    for v in g[u]:
+        if v != par:
+            dfs(v, u)
+
+// Function to find Lowest Common Ancestor
+function lca(u, v):
+    lg = 0
+    if lvl[u] < lvl[v]:
+        swap(u, v)
+    while (1 << lg) <= lvl[u]:
+        lg += 1
+    lg -= 1
+    for i from lg downto 0:
+        if lvl[u] - (1 << i) >= lvl[v]:
+            u = P[u][i]
+    if u == v:
+        return u
+    for i from lg downto 0:
+        if P[u][i] != -1 and P[u][i] != P[v][i]:
+            u = P[u][i]
+            v = P[v][i]
+    return P[u][0]
+
+// Function to calculate distance between two nodes
+function dis(u, v):
+    if lvl[u] < lvl[v]:
+        swap(u, v)
+    w = lca(u, v)
+    return lvl[u] + lvl[v] - 2 * lvl[w]
+
+// Main solving function
+function solve():
+    read n
+    clear(n)
+    for i from 0 to n - 1:
+        read x, y
+        add y to g[x]
+        add x to g[y]
+    dfs(1, 0)
+    read q
+    repeat q times:
+        read x, y
+        l = dis(x, y) + 1
+        if l is even:
+            print "Yes"
+        else:
+            print "No"
+            print 1, l
+
+// Main function
+function main():
+    read T
+    repeat T times:
+        solve()
+
+// Call main function
+main()
