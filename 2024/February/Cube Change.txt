@@ -1,0 +1,13 @@
+function cube(x):
+    return x * x * x
+
+read tests
+for each test in range(tests):
+    read q
+
+    if q equals 1:
+        res = cube(q) - cube(q - 1)
+    else:
+        res = cube(q) - cube(q - 2)
+
+    print res
