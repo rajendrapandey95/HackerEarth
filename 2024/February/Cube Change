@@ -1,0 +1,14 @@
+def cube(x):
+    return x * x * x
+
+tests = int(input())
+
+for _ in range(tests):
+    q = int(input())
+
+    if q == 1:
+        res = cube(q) - cube(q - 1)
+    else:
+        res = cube(q) - cube(q - 2)
+
+    print(res)
