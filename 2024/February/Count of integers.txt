@@ -1,0 +1,18 @@
+Define maxn as 1e6 + 17
+Declare an array phi of size maxn to store Euler's Totient Function values
+Declare an array divs of size maxn to store the number of divisors for each number
+Initialize phi and divs arrays with zeros
+
+For i from 1 to maxn - 1:
+    Increment phi[i] by i
+    For j from i * 2 to maxn - 1 with a step of i:
+        Subtract phi[i] from phi[j]
+    For j from i to maxn - 1 with a step of i:
+        Increment divs[j] by 1
+
+Read an integer q representing the number of queries
+
+While q is greater than 0:
+    Read an integer n
+    Print n - phi[n] - divs[n] + 1
+    Decrement q by 1
