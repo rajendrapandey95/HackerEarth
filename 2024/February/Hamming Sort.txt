@@ -1,0 +1,32 @@
+Function hammingDistance(x, y):
+    xorResult = x XOR y
+    distance = 0
+    while xorResult is not zero:
+        distance = distance + (xorResult AND 1)
+        xorResult = xorResult right shifted by 1
+    return distance
+
+Function customCompare(a, b, k):
+    distA = hammingDistance(a, k)
+    distB = hammingDistance(b, k)
+    if distA is not equal to distB:
+        return distA < distB
+    else:
+        return a < b
+
+Function solve(N, K, A):
+    Sort array A based on customCompare function with k as an argument
+    Return sorted array A
+
+Function main():
+    T = Input the number of test cases
+    for each test case from 1 to T:
+        N, K = Input the values of N and K
+        Create an empty array A of size N
+        for i from 0 to N-1:
+            A[i] = Input the ith element of array A
+        out_ = Call solve(N, K, A)
+        Output the first element of out_
+        for i from 1 to size of out_ - 1:
+            Output a space followed by the ith element of out_
+        Output a newline character
