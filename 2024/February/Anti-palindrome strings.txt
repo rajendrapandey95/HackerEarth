@@ -1,0 +1,15 @@
+Function solve():
+    Read input string s
+    Sort the characters of s in non-decreasing order
+
+    If first character of s is equal to last character of s:
+        Print -1
+    Else:
+        Print s
+
+Function main():
+    Read number of test cases t
+    Repeat t times:
+        Call solve() function
+
+Call main() function
