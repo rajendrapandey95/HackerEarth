@@ -1,0 +1,36 @@
+Function count_set_bits(num):
+    count := 0
+    while num is not 0:
+        count := count + (num AND 1)
+        num := num right-shifted by 1
+    Return count
+
+Function solve(arr):
+    ans := empty list
+    odd_set_bits := empty list
+    For each num in arr:
+        If count_set_bits(num) modulo 2 equals 0:
+            Append num to ans
+        Else:
+            Append num to odd_set_bits
+
+    Sort ans
+    Sort odd_set_bits
+
+    For each x in odd_set_bits:
+        Append x to ans
+
+    Return ans
+
+Function main():
+    Read T from input
+    For each test case:
+        Read N from input
+        Read A as a list of integers from input
+        result := solve(A)
+        For each num in result:
+            Print num followed by a space
+        Print a newline
+
+If this script is executed:
+    Call main()
