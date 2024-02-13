@@ -1,0 +1,26 @@
+Declare a 2D array a with dimensions [100005][20] of integers
+
+Function pre_process():
+    For i = 1 to 100000:
+        Set val = 1
+        For j = 1 to 20:
+            If val is less than or equal to i:
+                If i bitwise AND val is non-zero:
+                    Set a[i][j] = 1
+                Multiply val by 2
+
+    For i = 1 to 20:
+        For j = 1 to 100000:
+            Set a[j][i] = a[j - 1][i] + a[j][i]
+
+Function main():
+    Call pre_process()
+
+    Read integer q from input
+
+    Repeat q times:
+        Read integers l, r, and x from input
+        Set answer = a[r][x] - a[l - 1][x]
+        Print answer
+
+Call main()
