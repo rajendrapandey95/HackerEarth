@@ -1,0 +1,24 @@
+Define a function 'solve' that:
+    Reads the integer 'n' from standard input.
+    Creates an array 'a' of size 'n'.
+    Iterates over each index 'i' from 0 to 'n - 1':
+        Reads the integer 'a[i]' from standard input.
+        Calculates the count of set bits in 'a[i]' and stores the result in 'a[i]'.
+    Creates a 2D array 'dp' of size (N x 2) and initializes all elements to -1.
+    Calls the function 'foo' with parameters 0 and 0.
+        Checks if 'i' is equal to 'n':
+            Returns 1 if 'j' is equal to 1, otherwise returns 0.
+        Checks if 'dp[i][j]' is not equal to -1:
+            Returns 'dp[i][j]'.
+        Calculates 'c' by calling 'foo' recursively with parameters 'i + 1' and 'j XOR a[i]'.
+        If 'j' is equal to 1:
+            Updates 'c' by adding the result of another recursive call to 'foo' with parameters 'i + 1' and 'a[i]'.
+        Stores 'c' in 'dp[i][j]'.
+        Returns 'c'.
+    Prints the result 'c' to standard output followed by a newline.
+
+Define the 'main' function that:
+    Reads the integer 'T' (number of test cases) from standard input.
+    Iterates over each test case index 'tc' from 1 to 'T':
+        Calls the 'solve' function.
+    Returns 0 to indicate successful program execution.
