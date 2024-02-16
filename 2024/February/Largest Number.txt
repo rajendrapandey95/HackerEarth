@@ -1,0 +1,64 @@
+function removeKdigits(num: str, k: int) -> str:
+    stack = []  // Create an empty stack to store digits
+    i = 0       // Initialize index to traverse the input string
+
+    // Check if the number of digits in the input string is equal to k
+    if length(num) == k:
+        return "0"
+
+    // Iterate through each digit in the input string
+    while i < length(num):
+        // If the stack is empty, push the current digit onto the stack
+        if stack is empty:
+            push num[i] onto stack
+            increment i by 1
+            continue
+
+        // While the stack is not empty and there are still digits to be removed
+        while stack is not empty and k > 0:
+            // If the top digit in the stack is less than the current digit
+            if top of stack < num[i]:
+                pop the top digit from the stack
+                decrement k by 1
+            else:
+                break
+
+        // Push the current digit onto the stack
+        push num[i] onto stack
+        increment i by 1
+
+    // Remove remaining digits to satisfy the constraint k
+    while k > 0:
+        pop a digit from the stack
+        decrement k by 1
+
+    // Construct the resulting string from the digits remaining in the stack
+    result = ""
+    while stack is not empty:
+        append the top digit from the stack to result
+        pop the top digit from the stack
+
+    // Reverse the result to get the correct order of digits
+    result = reverse(result)
+
+    // Remove leading zeros from the result
+    while result is not empty and the first digit is '0':
+        remove the first digit from result
+
+    // If the result is empty, return "0"; otherwise, return the result
+    if result is empty:
+        return "0"
+    else:
+        return result
+
+if the current module is the main module:
+    // Take input from the user
+    input a string s
+    d = length of s
+    assert that 1 <= d <= 1000000
+
+    input an integer k
+    assert that 0 <= k < d
+
+    // Call the removeKdigits function with the input string and k, and print the result
+    print removeKdigits(s, k)
