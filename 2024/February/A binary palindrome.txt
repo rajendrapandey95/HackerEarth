@@ -1,0 +1,47 @@
+Function: cal(p: string) -> lli
+    - Initialize an empty string p1.
+    - Copy the content of string p to p1.
+    - Reverse the content of p1.
+    - Concatenate p1 to p.
+    - Initialize ans as 0.
+    - Loop from the end of string p to the beginning:
+        - If the current character is '1', add (2^(length of p - 1 - current index)) to ans.
+    - Return ans.
+
+Function: cal1(p: string) -> lli
+    - Initialize an empty string p1.
+    - Copy the content of string p to p1.
+    - Reverse the content of p1.
+    - Erase the first character of p1.
+    - Concatenate p1 to p.
+    - Initialize ans as 0.
+    - Loop from the end of string p to the beginning:
+        - If the current character is '1', add (2^(length of p - 1 - current index)) to ans.
+    - Return ans.
+
+Function: f(idx: int, p: string, flag: int) -> void
+    - If idx is equal to 16:
+        - Calculate cal(p) and add it to the palindromes vector.
+        - If p is not empty, calculate cal1(p) and add it to the palindromes vector.
+        - Return from the function.
+    - If flag is equal to 0:
+        - Recursively call f(idx + 1, p, 0).
+        - Recursively call f(idx + 1, p + "1", 1).
+    - Otherwise:
+        - Recursively call f(idx + 1, p + "0", 1).
+        - Recursively call f(idx + 1, p + "1", 1).
+
+Function: main() -> int
+    - Declare variables t, idx, ans, and n as integer.
+    - Read the value of t from the input.
+    - Assert that t is between 1 and 100000 (inclusive).
+    - Call f(0, "", 0).
+    - Sort the palindromes vector.
+    - Repeat the following t times:
+        - Read the value of n from the input.
+        - Assert that n is between 0 and 2000000000 (inclusive).
+        - Find the lower bound of n in the palindromes vector and store its index in idx.
+        - Calculate ans as the difference between palindromes[idx] and n.
+        - If idx is greater than 0, update ans as the minimum of ans and the difference between n and palindromes[idx - 1].
+        - Print ans.
+    - Return 0.
