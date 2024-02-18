@@ -1,0 +1,10 @@
+Read the input string and convert it into a list of characters.
+Initialize an empty list called 'opening' to store the indices of opening slashes ('/').
+Iterate through each character in the input list:
+    If the current character is a '/', add its index to the 'opening' list.
+    If the current character is a '\', reverse the substring between the last opening slash index (opening[-1]) and the current index (i).
+    Replace the characters within this substring with their reversed order.
+    Remove the last index from the 'opening' list.
+Filter out the characters '/' and '\' from the modified list.
+Join the filtered characters to form the final string.
+Output the final string.
