@@ -1,0 +1,50 @@
+Function main():
+    Read an integer t from input
+    Loop t times:
+        Read an integer n from input
+        Create an empty priority queue q
+        Loop n times:
+            Read an integer b from input
+            Push b onto the priority queue q
+        Create an empty list x
+        Set ans to "YES"
+        While q has more than 2 elements and the top element of q is greater than 1:
+            Loop 3 times:
+                Append the top element of q to list x
+                Pop the top element of q
+            If the second element of x is greater than or equal to 1:
+                If the first element of x minus the product of the second and third elements of x is less than or equal to the third element of x and greater than or equal to 0:
+                    Subtract the product of the second and third elements of x from the first element of x
+                Else if the first element of x modulo (the second element of x plus 1) is equal to 0 and the first element of x divided by (the second element of x plus 1) is greater than or equal to the third element of x:
+                    Divide the first element of x by (the second element of x plus 1)
+                Else:
+                    Set ans to "NO"
+                    Break out of the loop
+            For each element in x:
+                Push it onto the priority queue q
+            If the second element of x is less than 1:
+                Break out of the loop
+            Clear the list x
+        While q has exactly 2 elements and the top element of q is greater than 1:
+            Loop 2 times:
+                Append the top element of q to list x
+                Pop the top element of q
+            If the second element of x is greater than or equal to 1:
+                If the first element of x modulo (the second element of x plus 1) is equal to 0:
+                    Divide the first element of x by (the second element of x plus 1)
+                Else:
+                    Set ans to "NO"
+                    Break out of the loop
+            For each element in x:
+                Push it onto the priority queue q
+            If the second element of x is less than 1:
+                Break out of the loop
+            Clear the list x
+        Loop 2 times:
+            Append the top element of q to list x
+            Pop the top element of q
+        If the second element of x is less than 1:
+            Set ans to "NO"
+        Print ans to output
+    End loop
+End function
