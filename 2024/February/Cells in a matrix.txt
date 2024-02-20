@@ -1,0 +1,12 @@
+function main():
+    n, m = read integers from input
+    row = empty set
+    col = empty set
+    for i from 0 to m-1:
+        l, r = read integers from input
+        add l to row set
+        add r to col set
+        print (n - size of row set) * (n - size of col set), end=" "
+
+if __name__ == "__main__":
+    call main function
