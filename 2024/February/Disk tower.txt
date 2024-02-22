@@ -1,0 +1,36 @@
+Function SolveTower(N, a):
+    Initialize an empty array ans
+    Initialize done to N
+    Initialize an empty priority queue pq
+    
+    For each element x in array a:
+        Push x to the priority queue pq
+        Initialize an empty array aux
+        While pq is not empty and the top element of pq equals done:
+            Append done to aux
+            Pop from pq
+            Decrement done by 1
+        Append aux to ans
+    
+    Sort array a in non-decreasing order
+    Remove duplicate elements from array a
+    
+    Ensure that the size of array a is equal to N
+    
+    Return ans
+
+Function main():
+    Read an integer N from standard input
+    Assert that N is between 1 and 10^6
+    
+    Read N integers into array a from standard input
+    Assert that the size of array a is equal to N
+    
+    Call SolveTower(N, a) and store the result in out_
+    
+    For each row in out_:
+        For each element in the row:
+            Print the element followed by a space
+        Print a newline
+    
+Call main()
