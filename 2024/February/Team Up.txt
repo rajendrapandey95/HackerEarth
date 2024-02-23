@@ -1,0 +1,109 @@
+// Define a structure for Disjoint Set Union (DSU)
+struct Dsu {
+    // Arrays to store parent, size, and sum of each team
+    array par, siz, sum;
+    // Total number of members
+    int tot;
+
+    // Initialize the DSU with 'n' members
+    void init(int n) {
+        // Set total number of members
+        tot = n;
+        // Initialize arrays with appropriate sizes
+        Initialize par, siz, sum arrays
+        // Initially, each member is its own parent, size is 1, and sum is the member itself
+        for (int i = 1; i <= n; i++) {
+            Set parent of each member to itself
+            Set size of each team to 1
+            Set sum of each team to the member itself
+        }
+    }
+
+    // Find the parent of a member 'x' using path compression
+    int find(int x) {
+        If x is its own parent, return x
+        Else, return find(par[x])
+    }
+
+    // Combine teams of members 'a' and 'b'
+    void unite(int a, int b) {
+        // Find the parents of 'a' and 'b'
+        a = find(a)
+        b = find(b)
+        If a and b are in the same team, return
+        If size of team 'a' is greater than size of team 'b', swap 'a' and 'b'
+        Set parent of 'a' to 'b'
+        Increase size of team 'b' by size of team 'a'
+        Increase sum of team 'b' by sum of team 'a'
+        Set size of team 'a' and sum of team 'a' to 0
+    }
+
+    // Move member 'a' from its team to team of 'b'
+    void move(int a, int b) {
+        // Find the parent of 'a' and 'b'
+        int parA = find(a), parB = find(b)
+        If 'a' and 'b' are in the same team, return
+        Decrease size of team 'a' by 1
+        Subtract 'a' from sum of team 'a'
+        Set parent of 'a' to parent of 'b'
+        Increase size of team 'b' by 1
+        Add 'a' to sum of team 'b'
+    }
+
+    // Get the sum of members of the team where 'x' belongs
+    int getSum(int x) {
+        Find the parent of 'x'
+        Return the sum of the team where 'x' belongs
+    }
+
+    // Get the size of members of the team where 'x' belongs
+    int getSize(int x) {
+        Find the parent of 'x'
+        Return the size of the team where 'x' belongs
+    }
+}
+
+// Function to perform operations on teams based on given queries
+vector<vector<int>> teamUp(int n, int q, vector<vector<int>> &queries) {
+    // Initialize DSU
+    Dsu d
+    d.init(n)
+    // Vector to store results of queries
+    vector<vector<int>> ans
+    // Iterate through each query
+    for (int i = 0; i < queries.size(); i++) {
+        // If query type is 1, combine teams of members 'a' and 'b'
+        If query type is 1 {
+            Combine teams of members 'a' and 'b' using DSU unite(a, b) function
+        }
+        // If query type is 3, move member 'a' from its team to team of 'b'
+        Else if query type is 3 {
+            Move member 'a' from its team to team of 'b' using DSU move(a, b) function
+        }
+        // If query type is 2, get the size and sum of team where 'a' belongs
+        Else {
+            Get the size and sum of team where 'a' belongs using DSU getSize(a) and getSum(a) functions
+            Store the size and sum in a vector and add it to the result vector
+        }
+    }
+    // Return the result vector
+    return ans
+}
+
+// Main function to read input, perform operations, and print results
+int main() {
+    // Read the number of test cases
+    Read the number of test cases 't'
+    // Iterate through each test case
+    for (int i = 0; i < t; i++) {
+        // Read the number of members and queries
+        Read the number of members 'n' and the number of queries 'q'
+        // Read the queries
+        Read the queries into a vector of vectors 'queries'
+        // Call teamUp function to perform operations on teams based on queries
+        Call teamUp function with 'n', 'q', and 'queries' as arguments
+        // Print the results
+        Print the results
+    }
+    return 0
+}
