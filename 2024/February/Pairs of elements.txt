@@ -1,0 +1,27 @@
+Input:
+- n: integer (number of elements)
+- a: list of integers (input array of length n)
+
+Procedure calculate_pairs(n, a):
+    Initialize two empty dictionaries mp1 and mp2
+    
+    For each index i from 0 to n-1:
+        Calculate key1 as a[i] + (i + 1)^2
+        Update mp1[key1] by incrementing its count
+    
+    For each index i from 0 to n-1:
+        Calculate key2 as a[i] - (i + 1)^2
+        Update mp2[key2] by incrementing its count
+    
+    Initialize cnt as 0
+    
+    For each key in mp1:
+        Increment cnt by the product of mp2[key] and mp1[key]
+    
+    Output cnt
+
+Main:
+    Read n from input
+    Read array a from input
+    
+    Call calculate_pairs(n, a) and output the result
