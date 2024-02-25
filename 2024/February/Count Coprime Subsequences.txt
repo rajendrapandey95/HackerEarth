@@ -1,0 +1,66 @@
+// Import necessary libraries
+from collections import defaultdict
+
+// Define constants
+M = 10 ** 9 + 7
+MAX = 1 + 100000
+
+// Initialize arrays for prime sieve and storing square-free factors
+v = array of size MAX, initialized with False values
+sp = array of size MAX, initialized with 0 values
+squareFreeFactors = array of lists, each list initialized as empty, with size MAX
+
+// Generate prime sieve
+for i from 2 to MAX with step 2:
+    sp[i] = 2
+for i from 3 to MAX with step 2:
+    if v[i] is False:
+        sp[i] = i
+        j = i
+        while j * i < MAX:
+            if v[j * i] is False:
+                v[j * i] = True
+                sp[j * i] = i
+            j += 2
+
+// Function to calculate square-free factors of a number
+function getSquareFreeFactors(val):
+    if squareFreeFactors[val] is not empty:
+        return squareFreeFactors[val]
+    curr = val
+    primes = empty list
+    while curr > 1:
+        if primes is empty or sp[curr] is not equal to the last element of primes:
+            append sp[curr] to primes
+        curr = curr / sp[curr]
+    m = length of primes
+    for mask from 1 to (1 << m):
+        p = 1
+        sign = -1
+        for i from 0 to m-1:
+            if bit i in mask is set:
+                p = p * primes[i]
+                sign = sign * -1
+        append (p, sign) to squareFreeFactors[val]
+    return squareFreeFactors[val]
+
+// Function to count
+function count(arr):
+    res = 0
+    dp = defaultdict initialized with 0
+    for el in arr:
+        currctr = res + 1
+        for each (p, sign) pair in getSquareFreeFactors(el):
+            currctr = currctr - dp[p] * sign
+        for each (p, sign) pair in getSquareFreeFactors(el):
+            dp[p] = (M + (dp[p] + currctr) % M) % M
+        res = res + currctr
+        res = res % M
+    return res
+
+// Main logic
+t = input as integer
+for each test case from 1 to t:
+    N = input as integer
+    arr = input as list of integers
+    print count(arr)
