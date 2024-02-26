@@ -1,0 +1,48 @@
+FUNCTION root(i):
+    WHILE Arr[i] is not equal to i:
+        Set Arr[i] to Arr[Arr[i]]
+        Set i to Arr[i]
+    RETURN i
+
+FUNCTION weighted_union(A, B):
+    Set root_A to root(A)
+    Set root_B to root(B)
+    IF root_A is equal to root_B:
+        RETURN
+    IF node[root_A] < node[root_B]:
+        Set Arr[root_A] to Arr[root_B]
+        Increment node[root_B] by node[root_A]
+    ELSE:
+        Set Arr[root_B] to Arr[root_A]
+        Increment node[root_A] by node[root_B]
+
+FUNCTION solve():
+    Read n from input
+    FOR i from 0 to n:
+        Set Arr[i] to i
+        Set node[i] to 1
+
+    Initialize an empty list v
+    FOR each element in range(n):
+        Read x, y from input
+        Append (x, y) to v
+
+    Initialize an empty list val
+    FOR each element i in range(n):
+        FOR each element j in range(i + 1, n):
+            Calculate a as (v[i][0] - v[j][0])^2 + (v[i][1] - v[j][1])^2
+            Append (a, (i, j)) to val
+
+    Sort val in ascending order
+    Initialize ans to 0
+    FOR each element i in val:
+        IF root(i[1][0]) is not equal to root(i[1][1]):
+            Add i[0] to ans
+            Call weighted_union(i[1][0], i[1][1])
+
+    Print ans
+
+IF __name__ is equal to "__main__":
+    Initialize Arr as an empty dictionary
+    Initialize node as an empty dictionary
+    Call solve()
