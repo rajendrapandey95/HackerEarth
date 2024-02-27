@@ -1,0 +1,45 @@
+Function DSU:
+    Initialize class DSU with attributes par, f, sz
+    Initialize __init__ method to assign initial values to attributes
+
+    Function get:
+        If par[x] is -1, return x
+        Else, recursively call get(par[x]) and update par[x]
+        Return par[x]
+
+    Function unite:
+        Get representative elements for x and y using get method
+        If x and y are already in the same set:
+            If f[x] is true, return False
+            Set f[x] to True
+            Return True
+        If both x and y are marked as filled, return False
+        If size of set containing x is greater than set containing y, swap x and y
+        Add size of set containing x to set containing y
+        If f[y] is 0 and f[x] is 1, set f[y] to 1
+        Update par[x] to y
+        Return True
+
+Function main:
+    Read number of test cases, t
+    Iterate for each test case:
+        Read values of k, n, m
+        Initialize an empty list ad
+        Iterate k times:
+            Read values of u, v, w
+            Decrement u by 1
+            Add n - 1 to v
+            Append tuple (u, v, w) to ad
+        Sort ad based on w in descending order
+
+        Initialize nodes as the sum of n and m
+        Create DSU object d with nodes
+        Initialize ans to 0
+
+        Iterate over ad:
+            Unite nodes u and v using DSU object d
+            If successful, add weight w to ans
+
+        Print ans for the current test case
+
+Call main function
