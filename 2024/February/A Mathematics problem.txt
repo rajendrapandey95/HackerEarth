@@ -1,0 +1,21 @@
+Function findBottomLeftValue(root: TreeNode) -> Integer:
+    if root is null:
+        return -1  # Tree is empty
+    
+    queue = new Queue()  # Initialize a queue for level-order traversal
+    queue.enqueue(root)
+    
+    leftmost_value = root.val  # Initialize leftmost value with the value of the root node
+    
+    while queue is not empty:
+        level_size = queue.size()  # Get the number of nodes at the current level
+        leftmost_value = queue.front().val  # Update leftmost value with the value of the first node at each level
+        
+        for i from 1 to level_size:
+            node = queue.dequeue()  # Process nodes at the current level
+            if node.left is not null:
+                queue.enqueue(node.left)  # Enqueue left child if it exists
+            if node.right is not null:
+                queue.enqueue(node.right)  # Enqueue right child if it exists
+    
+    return leftmost_value  # Return the leftmost value found at the last level
