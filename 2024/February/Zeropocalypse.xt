@@ -1,0 +1,59 @@
+function power(x, y, m):
+    if y equals 0:
+        return 1
+    p = power(x, y/2, m) modulo m
+    p = (p * p) modulo m
+    return if y is even then p else (x * p) modulo m
+
+function process():
+    fact[0] = 1
+    for i from 1 to N - 1:
+        fact[i] = (fact[i - 1] * i) modulo M
+    for i from 0 to N - 1:
+        ifact[i] = power(fact[i], M - 2, M)
+
+function nCr(n, r):
+    if r is greater than n:
+        return 0
+    if r equals n:
+        return 1
+    ans = (ifact[n - r] * ifact[r]) modulo M
+    ans = (ans * fact[n]) modulo M
+    return ans
+
+function solve():
+    n = read integer from input
+    a = array of integers of size n
+    for i from 0 to n - 1:
+        a[i] = read integer from input
+    v = empty array of integers
+    for i from 0 to n - 1:
+        if a[i] is greater than 0:
+            append i to v
+    for i from 1 to size of v - 1:
+        if a[v[i]] is less than or equal to a[v[i - 1]]:
+            print 0
+            return
+        if (a[v[i]] - a[v[i - 1]] - 1) is less than (v[i] - v[i - 1] - 1):
+            print 0
+            return
+    if size of v is greater than 0:
+        if v[0] is greater than 0 and (a[v[0]] - 1) is less than v[0]:
+            print 0
+            return
+    if a[n - 1] equals 0:
+        print -1
+        return
+    c = 1
+    if v[0] is greater than 0:
+        c = nCr(a[v[0]] - 1, v[0])
+    for i from 1 to size of v - 1:
+        if (v[i] - v[i - 1]) is greater than 1:
+            c = (c * nCr(a[v[i]] - a[v[i - 1]] - 1, v[i] - v[i - 1] - 1)) modulo M
+    print c
+
+function main():
+    T = read integer from input
+    process()
+    for tc from 1 to T:
+        solve()
