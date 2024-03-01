@@ -1,0 +1,93 @@
+Define a constant MOD as 10^9 + 7
+
+Function pow(a, b, mod):
+    Initialize x as 1
+    Initialize y as a
+    While b > 0:
+        If b is odd:
+            Update x as (x * y) % mod
+        Update y as (y * y) % mod
+        Divide b by 2
+    Return x
+
+Function gcd(a, b):
+    If b is 0, return a
+    Otherwise, return gcd(b, a mod b)
+
+Function lcm(a, b):
+    Return (a * b) / gcd(a, b)
+
+Function mod_exp(b, p, m):
+    Initialize x as 1
+    While p is not 0:
+        If p is odd:
+            Update x as (x * b) % m
+        Update b as (b * b) % m
+        Divide p by 2
+    Return x
+
+Function invFermat(a, p):
+    Return mod_exp(a, p - 2, p)
+
+Function exp(b, p):
+    Initialize x as 1
+    While p is not 0:
+        If p is odd:
+            Update x as (x * b)
+        Update b as (b * b)
+        Divide p by 2
+    Return x
+
+Function tostring(number):
+    Convert number to string and return
+
+Function toint(s):
+    Convert string s to integer and return
+
+Function precomp():
+    Initialize facts as an array of size maxm filled with zeros
+    Initialize invfacts as an array of size maxm filled with zeros
+    Initialize numbersinverse as an array of size maxm filled with zeros
+
+    Set facts[0] and facts[1] as 1
+    Iterate from 2 to maxm:
+        Calculate facts[i] as (i * facts[i - 1]) % MOD
+
+    Set numbersinverse[0] and numbersinverse[1] as 1
+    Iterate from 2 to maxm:
+        Calculate numbersinverse[i] as (numbersinverse[MOD % i] * (MOD - MOD // i)) % MOD
+
+    Set invfacts[0] and invfacts[1] as 1
+    Iterate from 2 to maxm:
+        Calculate invfacts[i] as (numbersinverse[i] * invfacts[i - 1]) % MOD
+
+    Return facts, invfacts, numbersinverse
+
+Function ways(n, r):
+    Calculate f1 as facts[n]
+    Calculate f2 as invfacts[r]
+    Calculate f3 as invfacts[n - r]
+    Update f1 as (f1 * f2) % MOD
+    Update f1 as (f1 * f3) % MOD
+    Return f1
+
+Function solve():
+    Read integers n and k from input
+    If n is 2 and k is 2:
+        Print "1"
+        Exit function
+
+    Initialize ans as 0
+    Set ok as minimum of (n - 1) and k
+    Iterate from 0 to ok:
+        Update ans as (ans + ((ways(n, i) * ways(n - 1, n - i - 1)) % MOD)) % MOD
+
+    Print ans
+
+Main:
+    Set maxm as 10^5 + 5
+    Call precomp() and store returned values in facts, invfacts, numbersinverse
+
+    Read integer t from input
+    Iterate t times:
+        Call solve()
