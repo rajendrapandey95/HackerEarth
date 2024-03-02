@@ -1,0 +1,24 @@
+function main():
+    l, r = input().split()  // Inputting the values of l and r
+    
+    // Converting l and r to integers
+    l = integer(l)
+    r = integer(r)
+
+    // Adjusting l and r to ensure they are odd
+    if l is even:
+        l = l + 1
+    if r is even:
+        r = r - 1
+
+    // Calculating the number of odd numbers between l and r
+    no_of_odd_nos = ((r - l) // 2) + 1
+
+    // Checking if the count of odd numbers is odd or even and printing the result
+    if no_of_odd_nos is odd:
+        print "odd"
+    else:
+        print "even"
+
+// Executing the main function
+main()
