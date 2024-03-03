@@ -1,0 +1,26 @@
+function solve(tc):
+    n = input() // Read input for the number of elements in the array
+    assert n >= 3 and n <= 100 // Ensure the input is within valid range
+
+    // Initialize an array 'a' to store the counts of even and odd elements
+    a[2] = {0, 0}
+
+    for i from 1 to n:
+        x = input() // Read input for each element
+        assert x >= 1 and x <= 100 // Ensure each element is within valid range
+        a[x % 2]++ // Increment count based on whether the element is even or odd
+
+    // Check conditions for the array and print the result accordingly
+    if a[0] == 0 or a[0] == n or abs(a[0] - a[1]) <= 1:
+        output "YES"
+    else:
+        output "NO"
+
+function main():
+    t = input() // Read input for the number of test cases
+    assert t >= 1 and t <= 100 // Ensure the number of test cases is within valid range
+
+    for i from 1 to t:
+        solve(i) // Call the solve function for each test case
+
+main() // Call the main function to start the program
