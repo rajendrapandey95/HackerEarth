@@ -1,0 +1,16 @@
+function calculateCharacterCounts(string s, int q):
+    n := length(s)
+    initialize cnt as a 2D array of size 26x26 with all elements as 0
+    initialize prefix_cnt as an array of size 26 with all elements as 0
+
+    for each character c in s:
+        d2 := ASCII value of c - ASCII value of 'a'
+        increment prefix_cnt[d2] by 1
+        for each character index d1 from 0 to 25:
+            cnt[d1][d2] += prefix_cnt[d1]
+
+    for i from 1 to q:
+        read characters x and y
+        d1 := ASCII value of x - ASCII value of 'a'
+        d2 := ASCII value of y - ASCII value of 'a'
+        print cnt[d1][d2]
