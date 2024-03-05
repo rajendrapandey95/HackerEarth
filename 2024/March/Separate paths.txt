@@ -1,0 +1,38 @@
+function dfs(v: integer, seen: array of boolean, ban: integer, g: array of array of integer):
+    if seen[v] or v == ban:
+        return
+    seen[v] := true
+    for each u in g[v]:
+        dfs(u, seen, ban, g)
+
+function solve():
+    n, m := read integers from input
+    g := create an array of arrays of integers of size n
+    in_degrees := create an array of integers of size n, filled with zeros
+    for i from 1 to m:
+        v, u := read integers from input
+        v := v - 1
+        u := u - 1
+        append u to g[v]
+        increment in_degrees[u]
+    ok := create a 2D array of boolean values of size maxn x maxn, initialized with true
+    for ban from 0 to n - 1:
+        seen := create an array of boolean values of size maxn, initialized with false
+        for i from 0 to n - 1:
+            if in_degrees[i] == 0:
+                call dfs(i, seen, ban, g)
+        for i from 0 to n - 1:
+            for j from 0 to n - 1:
+                if not seen[i] and not seen[j]:
+                    ok[i][j] := false
+    ans := 0
+    for i from 0 to n - 1:
+        for j from 0 to i - 1:
+            if ok[i][j]:
+                increment ans
+    print ans
+
+function main():
+    t := read an integer from input
+    for each test case from 1 to t:
+        call solve()
