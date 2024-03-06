@@ -1,0 +1,36 @@
+Function main():
+    Read an integer t from input (number of test cases)
+    Initialize sum_n to 0
+    
+    Loop until t > 0:
+        Read an integer n from input (size of the array)
+        Add n to sum_n
+        
+        Initialize an array arr of size n
+        
+        Loop from 0 to n - 1:
+            Read an integer arr[i] from input
+        
+        Count the number of zeros in the array arr
+        
+        If cnt_zrs is equal to 0 or cnt_zrs is equal to n:
+            Print "0"
+            Continue to the next test case
+        
+        If cnt_zrs is less than n / 2:
+            Print "-1"
+            Continue to the next test case
+        
+        Initialize cnt to 0
+        
+        Loop from 0 to n - 2:
+            If arr[i] is zero, continue to the next iteration
+            If arr[i] is equal to arr[i + 1]:
+                Increment cnt
+                Increment i by 1
+        
+        Print cnt
+        
+        Decrement t by 1
+
+End of main function
