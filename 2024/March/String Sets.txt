@@ -1,0 +1,60 @@
+function pow_mod(a, b):
+    x = 1
+    y = a
+    while b > 0:
+        if b % 2 == 1:
+            x = (x * y) % mod
+        y = (y * y) % mod
+        b = b / 2
+    return x
+
+function build():
+    fact[0] = 1
+    for i from 1 to maxn-1:
+        fact[i] = (fact[i-1] * i) % mod
+    inv_fact[maxn-1] = pow_mod(fact[maxn-1], mod-2)
+    for i from maxn-2 downto 0:
+        inv_fact[i] = (inv_fact[i+1] * (i+1)) % mod
+
+function C(n, r):
+    val1 = fact[n]
+    val2 = inv_fact[r]
+    val3 = inv_fact[n-r]
+    mul = (val2 * val3) % mod
+    return (val1 * mul) % mod
+
+function get(sum, n):
+    sum = sum - n
+    tot = C(sum+n-1, n-1)
+    sub = 0
+    for i from 1 to n:
+        x = 1
+        curr = 26 * i
+        left = sum - curr
+        if left >= 0:
+            now1 = C(left+n-1, n-1)
+            now2 = C(n, i)
+            now1 = (now1 * now2) % mod
+            now1 = (now1 * x + mod) % mod
+            sub = (sub + now1) % mod
+    return (tot - sub + mod) % mod
+
+function main():
+    build()
+    input n, m, k
+    input a
+    sum = 0
+    add = 0
+    for i from 0 to n-1:
+        sum = (sum + a[i] - 'a' + 1) % m
+
+    add = (k - sum + m) % m
+    res = 0
+    max = 26 * n
+
+    while add <= max:
+        if add >= n:
+            res = (res + get(add, n)) % mod
+        add = add + m
+
+    output res
