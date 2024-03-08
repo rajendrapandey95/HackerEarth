@@ -1,0 +1,45 @@
+function check(mid, v, m):
+    if v[0] > mid:
+        return false
+    
+    curW = v[0]
+    line = 1
+    n = length(v)
+
+    for i = 1 to n - 1:
+        if v[i] > mid:
+            return false
+        else:
+            if mid < (curW + v[i] + 1):
+                line++
+                curW = v[i]
+            else:
+                curW += v[i] + 1
+    
+    return line <= m
+
+
+function solve():
+    lo = 0
+    n, m = input() // read integers n and m
+    v = input() // read list of integers v
+    
+    hi = LLONG_MAX
+    ans = hi
+    
+    while lo <= hi:
+        mid = lo + (hi - lo) / 2
+        
+        if check(mid, v, m):
+            ans = mid
+            hi = mid - 1
+        else:
+            lo = mid + 1
+    
+    output ans
+
+
+function main():
+    fast
+    solve()
+
