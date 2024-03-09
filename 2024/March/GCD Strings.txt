@@ -1,0 +1,29 @@
+function power(base, exponent, modulus)
+    result = 1
+    while exponent > 0
+        if exponent % 2 == 1
+            result = (result * base) % modulus
+        exponent = exponent / 2
+        base = (base * base) % modulus
+    return result
+
+function func(x, n, len)
+    r = power(2, len, MOD)
+    temp = ((power(r, n) - 1) * power(r - 1, MOD - 2)) % MOD
+    temp = (temp * x) % MOD
+    return temp
+
+function gcd(a, b)
+    if a % b == 0
+        return (power(2, a - 1) % MOD, power(2, b - 1) % MOD)
+    else
+        x = gcd(b, a % b)
+        first = (func(x.first, a / b, b) * power(2, a % b) + x.second) % MOD
+        return (first, x.first)
+
+function main()
+    T = input number of test cases
+    for each test case
+        x, y = input two integers
+        result = gcd(x, y).first
+        output result
