@@ -1,0 +1,23 @@
+function main():
+    t = read_integer()  // Read the number of test cases
+    for _ in range(t):  // Iterate over each test case
+        n, k = read_integers()  // Read n and k for the current test case
+        nums = read_integers()  // Read the list of numbers for the current test case
+        nums.sort()  // Sort the list of numbers
+        freq = create_defaultdict()  // Initialize a defaultdict to count the frequency of each number
+        for num in nums:  // Iterate over each number in the list
+            freq[num] += 1  // Increment the count of the current number in the defaultdict
+        sums = []  // Initialize an empty list to store the sums
+        for num, f in freq.items():  // Iterate over each unique number and its frequency
+            sums.append(num * f)  // Calculate the sum of the current number and its frequency, and append it to the sums list
+        sums.sort(reverse=True)  // Sort the sums list in descending order
+        total = 0  // Initialize a variable to store the total sum
+        for i in range(k):  // Iterate over the first k elements of the sorted sums list
+            if i < len(sums):  // Check if the index is within the bounds of the sums list
+                if sums[i] <= 0:  // If the current sum is non-positive, break the loop
+                    break
+                total += sums[i]  // Add the current sum to the total
+        print(total)  // Print the total sum for the current test case
+
+if __name__ == "__main__":
+    main()  // Call the main function to start the program execution
