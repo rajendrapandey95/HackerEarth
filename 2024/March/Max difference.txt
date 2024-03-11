@@ -1,0 +1,13 @@
+function main():
+    t = read_integer()  // Read the number of test cases
+    for _ in range(t):  // Iterate over each test case
+        n = read_integer()  // Read the size of the array for the current test case
+        a = read_integers()  // Read the array for the current test case
+        sort(a)  // Sort the array in ascending order
+        if n <= 3:  // If the size of the array is less than or equal to 3
+            print the difference between the last and first elements of the sorted array
+        else:  // If the size of the array is greater than 3
+            print the sum of the differences between the last and first elements, and the second last and second elements of the sorted array
+
+if __name__ == "__main__":
+    main()
