@@ -1,0 +1,11 @@
+Set tc as the input for the number of test cases
+
+While tc is greater than 0:
+    Decrement tc by 1
+    Take input n for the current test case
+    
+    Convert n to a string m
+    
+    Check if '21' is present in m or if n is divisible by 21:
+        If true, print "The streak is broken!"
+        If false, print "The streak lives still in our heart!"
