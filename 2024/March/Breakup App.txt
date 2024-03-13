@@ -1,0 +1,57 @@
+function main():
+    n = input()  // Read the number of chats
+    chats = []   // Initialize an empty list to store chats
+
+    // Read each chat and store it in the chats list
+    for i in range(n):
+        chat = input()
+        chats.append(chat)
+
+    days = [0] * 31  // Initialize an array to store weights for each day
+
+    // Process each chat
+    for chat in chats:
+        weight = 0
+        
+        // Determine the weight based on the first character of the chat
+        if first character of chat is 'G':
+            weight = 2
+        else:
+            weight = 1
+
+        // Split the chat into words and process each word
+        words = split chat into words
+        for word in words:
+            // Check if the word represents a date (a number between 1 and 30)
+            if word is a number between 1 and 30:
+                number = convert word to integer
+                // Add the weight to the corresponding day
+                days[number] += weight
+
+    max_val = days[0]  // Initialize the maximum weight to the weight of the first day
+    max_date = 0       // Initialize the index of the day with maximum weight
+
+    // Find the day with maximum weight
+    for i from 1 to 30:
+        if days[i] > max_val:
+            max_val = days[i]
+            max_date = i
+
+    max_days = 0  // Initialize the count of days with maximum weight to 0
+
+    // Count the number of days with maximum weight
+    for i from 0 to 30:
+        if days[i] equals max_val:
+            max_days += 1
+
+    // Determine whether it's a date or not based on conditions
+    if max_days > 1:
+        print "No Date"
+    else if max_date equals 19 or max_date equals 20:
+        print "Date"
+    else:
+        print "No Date"
+
+// Entry point of the program
+if __name__ == "__main__":
+    main()
