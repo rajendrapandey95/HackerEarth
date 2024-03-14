@@ -1,0 +1,38 @@
+Function get_phi(val, primes):
+    Initialize res = val
+    For each prime in primes:
+        While val is divisible by prime:
+            Divide val by prime
+        Update res = (res / prime) * (prime - 1)
+    If val is still greater than 1:
+        Update res = (res / val) * (val - 1)
+    Return res
+
+Function main():
+    Initialize pr array to store prime numbers
+    Set pr[1] = 1
+    For i from 2 to 1000000:
+        If pr[i] is not marked:
+            Mark all multiples of i in pr as not prime
+            Update pr[i] = 1
+    Read the number of test cases, tests
+    While tests is greater than 0:
+        Decrement tests by 1
+        Read the values of l, r, and k
+        Clear the vector arrays vec
+        For i from l to r:
+            Clear the vec array at index (i - l)
+        For i from 2 to 1000000:
+            If pr[i] is marked as not prime:
+                Continue to the next iteration
+            Set bnd = (l // i) * i
+            If l is not divisible by i:
+                Increase bnd by i
+            For j from bnd to r:
+                Add i to the vec array at index (j - l)
+        Initialize ans = 0
+        For i from l to r:
+            Compute Q using get_phi function with i and vec[i-l]
+            If Q is divisible by k:
+                Increment ans
+        Output ans as a fraction of (r - l + 1)
