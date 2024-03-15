@@ -1,0 +1,20 @@
+function solve():
+    read t from input
+    repeat t times:
+        read n from input
+        ans = 0
+        j = square root of n
+        for i from 1 to j:
+            ans += (n / i)
+        for i from 1 to j:
+            hi = n / i
+            lo = n / (i + 1)
+            lo = max(lo, j)
+            hi = max(hi, j)
+            ans += i * (hi - lo)
+        print ans
+
+function main():
+    call solve()
+
+call main()
