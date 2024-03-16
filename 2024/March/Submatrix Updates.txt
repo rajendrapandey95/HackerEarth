@@ -1,0 +1,35 @@
+function main():
+    n, m, k = map(int, input().split())
+
+    // Initialize arrays a and lazy
+    a = create a 2D array of size n x m initialized with zeros
+    lazy = create a 2D array of size n x m initialized with zeros
+
+    // Populate array a with input values
+    for i from 0 to n - 1:
+        a[i] = list of integers obtained by splitting input by spaces
+
+    // Process lazy updates
+    for _ in range(k):
+        r, c, s, d = map(int, input().split())
+        r -= 1
+        c -= 1
+        for i from 0 to s - 1:
+            lazy[i + r][c] += d
+            if c + s < m:
+                lazy[i + r][c + s] -= d
+
+    // Compute cumulative sums in the lazy array
+    for i from 0 to n - 1:
+        for j from 1 to m - 1:
+            lazy[i][j] += lazy[i][j - 1]
+
+    // Output the final array
+    for i from 0 to n - 1:
+        for j from 0 to m - 1:
+            print(a[i][j] + lazy[i][j], end=" ")
+        print()
+
+
+if __name__ == "__main__":
+    main()
