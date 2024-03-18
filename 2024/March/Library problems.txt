@@ -1,0 +1,24 @@
+Define DEBUG as a boolean constant indicating whether debug mode is enabled
+
+Define function pb as a macro for push_back
+Define macros for accessing the first and second elements of a pair: X and Y
+
+Define typedefs for commonly used types: ll (long long), ld (long double), pii (pair of integers), piii (pair of integer pairs), pll (pair of long longs), and point (pair of pairs of integers)
+
+Define constants for maximum array size (maxn), infinity (INF), modulo value (M), and logarithmic value (lg)
+
+Define main function:
+    Disable synchronization with standard C and C++ streams and untie cin, cout, and cerr
+    Declare variables n and r of type long long
+    Read input for n and r from standard input
+
+    Declare a vector a of pairs of long longs to store balloon coordinates
+
+    Loop from i = 0 to n - 1:
+        Read input for a[i].X and a[i].Y (coordinates of each balloon) from standard input
+
+    Output the value of n to standard output
+    Loop from i = 0 to n - 1:
+        Output the coordinates of each balloon (a[i].X and a[i].Y) to standard output
+
+    Return 0 to indicate successful execution of the program
