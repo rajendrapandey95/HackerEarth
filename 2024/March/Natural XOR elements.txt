@@ -1,0 +1,16 @@
+Define a function main():
+    Read the number of test cases, t.
+    Loop over each test case:
+        Read the value of n.
+        Determine the value of n modulo 4:
+            If n % 4 is 0:
+                Print "1" followed by the value of n.
+            If n % 4 is 1:
+                Print "1" followed by "1".
+            If n % 4 is 2:
+                Print "2" followed by the value of n and the bitwise XOR of n and n+1.
+            If n % 4 is 3:
+                Print "0".
+                
+If the script is executed directly:
+    Call the main function.
