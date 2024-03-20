@@ -1,0 +1,53 @@
+Procedure Initialize():
+    For each node i from 1 to n:
+        root[i] = i
+        sz[i] = 1
+        sum[i] = i
+
+Procedure Find(x):
+    if root[x] is not equal to x:
+        root[x] = Find(root[x])
+    return root[x]
+
+Procedure Union(x, y):
+    root_y = Find(y)
+    root_x = Find(x)
+    sz[root_x] += sz[root_y]
+    sum[root_x] += sum[root_y] mod MOD
+    root[root_y] = root_x
+
+Procedure Solve():
+    Read n
+    Assert n >= 1 and n <= 200000
+    Call Initialize()
+
+    Create an empty list of pairs, a
+
+    For each edge i from 0 to n - 2:
+        Read u, v, w
+        Assert u >= 1 and u <= n
+        Assert v >= 1 and v <= n
+        Assert w >= 1 and w <= 1000000
+        Add (w, (u, v)) to a
+
+    Sort list a based on the weight w
+
+    Initialize ans to 0
+
+    For each edge i from 0 to n - 2:
+        Let x be the first node of edge i
+        Let y be the second node of edge i
+        root_x = Find(x)
+        root_y = Find(y)
+
+        mul = (sum[root_x] * sum[root_y]) mod MOD
+        ans = (ans + (a[i].first * mul) mod MOD) mod MOD
+
+        Call Union(root_x, root_y)
+
+    Output ans
+
+Procedure Main():
+    Call Solve()
+
+Main()
