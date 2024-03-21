@@ -1,0 +1,51 @@
+// Define a structure for a singly linked list node
+struct ListNode {
+    int val;        // Value of the node
+    ListNode* next; // Pointer to the next node in the list
+    ListNode(int x) : val(x), next(nullptr) {} // Constructor
+};
+
+// Define a class for the solution
+class Solution {
+public:
+    // Method to reverse a singly linked list
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prevNode = nullptr; // Pointer to the previous node
+        ListNode* currNode = head;    // Pointer to the current node
+        
+        // Iterate through the list
+        while (currNode != nullptr) {
+            ListNode* nextNode = currNode->next; // Store reference to next node
+            currNode->next = prevNode;           // Reverse pointer direction
+            
+            // Move to the next pair of nodes
+            prevNode = currNode;
+            currNode = nextNode;
+        }
+        
+        // Return the new head of the reversed list
+        return prevNode;
+    }
+};
+
+// Main function for example usage
+int main() {
+    // Example usage
+    ListNode* head = new ListNode(1);           // Create a sample linked list
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+
+    Solution sol;                               // Create an instance of the Solution class
+    ListNode* reversedList = sol.reverseList(head); // Reverse the linked list
+
+    // Print the reversed list
+    while (reversedList != nullptr) {
+        cout << reversedList->val << " ";
+        reversedList = reversedList->next;
+    }
+    cout << endl;
+
+    return 0;
+}
