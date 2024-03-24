@@ -1,0 +1,11 @@
+function sort_and_print_values():
+    Read inputs n and k
+    Read input list li
+    Initialize an empty list temp
+    For each element i in li do the following:
+        Calculate the modulo of i with k and store it in variable t
+        Append [t, -i] to the temp list
+    Sort the temp list in descending order based on the first element of each tuple
+    For each element i in range(n) do the following:
+        Print the negative of the second element of temp[i]
+    End function
