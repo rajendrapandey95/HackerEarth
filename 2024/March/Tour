@@ -1,0 +1,25 @@
+Define a map p: string to integer
+Define a 2D array arr of size (1000 + 1) x (1000 + 1)
+
+Function main():
+    Declare variables: n, m, tem1, ans
+    Read n from input
+
+    For i from 0 to n - 1:
+        Read a string s from input
+        Map s to i in p
+
+    For i from 0 to n - 1:
+        For j from 0 to n - 1:
+            Read tem1 from input
+            Set arr[i][j] = tem1
+
+    Read m from input
+    Set last = 0
+
+    For i from 0 to m - 1:
+        Read a string s from input
+        Add arr[last][p[s]] to ans
+        Set last = p[s]
+
+    Print ans
