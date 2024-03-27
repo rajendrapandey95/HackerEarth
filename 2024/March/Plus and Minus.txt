@@ -1,0 +1,71 @@
+Function CanMake(a: List of Integer, ok: Set of Integer) -> Boolean
+    While size of ok < size of a
+        fr = max element from ok
+        Remove fr from ok
+        lr = max element from ok
+        Insert (fr + lr) into ok
+        Insert (fr - lr) into ok
+        Insert fr into ok
+
+    Sort a
+    Set i to 0
+
+    For each x in ok
+        If x != a[i]
+            Return False
+        Increment i
+
+    Return True
+
+End Function
+
+Function Solve()
+    Read n
+    Initialize a list of size n
+
+    For i from 0 to n-1
+        Read a[i]
+
+    If n >= 100
+        Set zeroFlag to True
+        For each x in a
+            If x != 0
+                Set zeroFlag to False
+
+        If zeroFlag
+            Print "YES"
+            Print "0 0"
+            Return
+
+        Print "NO"
+        Return
+
+    Initialize ok as a set with elements of a
+
+    While size of ok > 2
+        fr = max element from ok
+        Remove fr from ok
+        lr = max element from ok
+        fr = fr - lr
+
+        If (lr - fr) exists in ok
+            Remove (lr - fr) from ok
+        Else
+            Print "NO"
+            Return
+
+    If size of ok == 2 AND CanMake(a, ok)
+        Print "YES"
+        Print max of ok, min of ok
+    Else
+        Print "NO"
+
+End Function
+
+Function Main
+    Read t
+    While t > 0
+        Call Solve()
+        Decrement t
+    End While
+End Function
