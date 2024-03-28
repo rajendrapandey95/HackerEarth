@@ -1,0 +1,41 @@
+Function gcd(a, b):
+    if b is 0:
+        return a
+    return gcd(b, a mod b)
+
+Function getGCD(curMask):
+    if gcd_calc[curMask] is not -1:
+        return gcd_calc[curMask]
+    ans = 0
+    for i = 0 to n-1:
+        if curMask & (1LL << i) is not 0:
+            ans = gcd(ans, a[i])
+    gcd_calc[curMask] = ans
+    return ans
+
+Function checker(ind, curMask):
+    if ind >= n:
+        return 0
+    if dp[ind][curMask] is not -1:
+        return dp[ind][curMask]
+    ans = 0
+    for i = 0 to n-1:
+        if (curMask & (1LL << i)) == 0:
+            newMask = curMask | (1LL << i)
+            prefGCD = getGCD(newMask)
+            ans = max(ans, prefGCD + checker(ind + 1, newMask))
+    dp[ind][curMask] = ans
+    return ans
+
+Function solve():
+    Initialize dp array with -1
+    Initialize gcd_calc array with -1
+    Read input value of n
+    mask = (1LL << n)
+    for i = 0 to n-1:
+        Read input value of a[i]
+    ans = checker(0, 0)
+    Print ans
+
+Main function:
+    Call solve() function
