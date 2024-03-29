@@ -1,0 +1,17 @@
+Function f(n, k):
+    If n equals 0:
+        Return 0
+    Set res to n divided by k
+    Return f(n divided by k, k) plus n times (n plus 1) divided by 2 minus (res times (res plus 1) divided by 2) times k
+
+Function main():
+    Read the integer T from input
+    Assert that T is between 1 and 300,000 inclusive
+    Repeat T times:
+        Read integers n and k from input
+        Assert that n is less than or equal to 1 billion
+        Assert that k is between 2 and 1 billion inclusive
+        Print f(n, k)
+
+If the script is executed directly:
+    Call the main function
