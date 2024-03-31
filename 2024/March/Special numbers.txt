@@ -1,0 +1,14 @@
+Start
+Input an integer n
+Define a function f(v):
+    If v > n, return
+    If v > 0, append v to a list g
+    Call f(10 * v + 4)
+    Call f(10 * v + 7)
+Define a variable result and set it to 0
+Call function f(0)
+Loop over indices i from 0 to the length of list g - 1:
+    Loop over indices j from i + 1 to the length of list g:
+        If gcd(g[i], g[j]) == 1, increment result by 1
+Output result
+End
