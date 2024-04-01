@@ -1,0 +1,14 @@
+For each test case:
+    Read the number of integers n
+    Initialize a variable g to 0
+    For i from 0 to n-1:
+        Read the next integer x
+        If i is 0:
+            Set g to x
+        Else:
+            Calculate the greatest common divisor (GCD) of g and x
+            Update g with the calculated GCD
+    If the final value of g is 1:
+        Print "FINITE"
+    Else:
+        Print "INFINITE"
