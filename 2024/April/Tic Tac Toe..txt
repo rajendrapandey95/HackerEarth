@@ -1,0 +1,24 @@
+define MOD as 1000000007
+
+function main():
+    t = read_integer_from_input()
+    assert t is between 1 and 100000
+    
+    for each test_case in range(t):
+        n = read_integer_from_input()
+        assert n is between 3 and 1000000000
+        assert n is odd
+        
+        n = n - 1
+        tmp = n / 2
+        
+        mn = (tmp * tmp) % MOD
+        mn = (mn * (n + 1)) % MOD
+        
+        mx = (n * (n + 1)) % MOD
+        mx = (mx * (2 * n + 1)) % MOD
+        mx = (mx * 166666668) % MOD
+        
+        print mn, mx
+
+call main()
