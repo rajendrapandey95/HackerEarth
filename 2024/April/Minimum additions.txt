@@ -1,0 +1,17 @@
+Input: 
+    t: integer (number of test cases)
+    for each test case:
+        n: integer (number of elements in the list)
+        k: integer (constraint)
+        List of integers
+
+Process:
+    Loop while t > 0:
+        Decrement t by 1
+        Read n, k, and the list of integers
+        Calculate the sum of the integers in the list
+        Calculate the maximum value satisfying the condition: max(0, s // (k + 1) - n + 1)
+        Print the maximum value
+
+Output:
+    Maximum value satisfying the condition for each test case
