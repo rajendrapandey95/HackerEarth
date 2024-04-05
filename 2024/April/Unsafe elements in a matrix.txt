@@ -1,0 +1,21 @@
+Function MaximizeGridAreas(t: int):
+    For each test case in range t:
+        Read n, m from input
+        Initialize rmx, cmx, rmn, cmn arrays of size n and m respectively, with INT_MIN and INT_MAX
+        For each row i from 0 to n - 1:
+            For each column j from 0 to m - 1:
+                Read x from input
+                Update rmx[i] to max(rmx[i], x)
+                Update cmx[j] to max(cmx[j], x)
+                Update rmn[i] to min(rmn[i], x)
+                Update cmn[j] to min(cmn[j], x)
+        Find mx as maximum value in rmx array
+        Find mn as minimum value in rmn array
+        Initialize r and c as 0
+        For each row i from 0 to n - 1:
+            If rmn[i] is not equal to mn and rmx[i] is not equal to mx:
+                Increment r by 1
+        For each column j from 0 to m - 1:
+            If cmn[j] is not equal to mn and cmx[j] is not equal to mx:
+                Increment c by 1
+        Print c multiplied by r
