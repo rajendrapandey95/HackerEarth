@@ -1,0 +1,32 @@
+// Read the number of test cases
+input t
+
+// Iterate over each test case
+for i from 1 to t:
+    // Read the number of elements in the current test case
+    input n
+    
+    // Initialize variables for the current test case
+    int ans = 0
+    int len = 0
+    
+    // Iterate over the elements of the current test case
+    for j from 1 to n:
+        // Read the current element
+        input x
+        
+        // Check if the current element is odd
+        if x is odd:
+            // Increment the length of the current streak of odd numbers
+            len++
+        else:
+            // Update the answer based on the length of the streak of odd numbers
+            ans += len + (len % 2) * 3
+            // Reset the length of the streak of odd numbers
+            len = 0
+    
+    // Update the answer based on the length of the final streak of odd numbers
+    ans += len + (len % 2) * 3
+    
+    // Output the answer divided by 2
+    output ans / 2
