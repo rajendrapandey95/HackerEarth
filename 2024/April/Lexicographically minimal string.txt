@@ -1,0 +1,50 @@
+Class Hacker:
+    Array parent
+    Array size
+
+    Function find(i):
+        If parent[i] is not equal to i:
+            Return find(parent[i])
+        Return i
+
+    Function unionSet(a, b):
+        x = find(a)
+        y = find(b)
+        If x is not equal to y:
+            If size[x] is greater than size[y]:
+                size[x] += size[y]
+                parent[y] = x
+            Else:
+                size[y] += size[x]
+                parent[x] = y
+
+    Function solution(a, b, c):
+        Initialize parent and size arrays of size 26
+        For each element i in the range 0 to 25:
+            Set parent[i] to i
+            Set size[i] to 1
+
+        For each character in string a and b at index i:
+            x = ASCII value of character a[i] - ASCII value of 'a'
+            y = ASCII value of character b[i] - ASCII value of 'a'
+            Call unionSet(x, y)
+
+        Initialize an empty string ans
+        For each character ch in string c:
+            f = find(ASCII value of ch - ASCII value of 'a')
+            For each element j in the range 0 to 25:
+                If find(j) is equal to f:
+                    Append character with ASCII value ('a' + j) to ans
+                    Break out of loop
+        Return ans
+
+    Function solve():
+        Read strings a, b, and c from input
+        Print solution(a, b, c)
+
+    Function run():
+        Call solve()
+
+Main:
+    Instantiate Hacker object hacker
+    Call hacker.run()
