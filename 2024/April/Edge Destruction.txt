@@ -1,0 +1,86 @@
+Function pow_mod(a, b, mod):
+    res = 1
+    while b is not zero:
+        if b bitwise AND 1 is not zero:
+            res = (res * a) modulo mod
+        a = (a * a) modulo mod
+        b right shift by 1
+    return res
+
+Function update_residual(v, flow):
+    while v is not equal to prev_nd[v]:
+        residual_network_cap[prev_nd[v]][v] += flow
+        residual_network_cap[v][prev_nd[v]] -= flow
+        v = prev_nd[v]
+
+Function find_augment_path_flow(src, snk, n):
+    for i from 0 to n:
+        prev_nd[i] = -1
+        flow_intermediate[i] = 0
+    q = empty queue
+    q.push(src)
+    prev_nd[src] = src
+    flow_intermediate[src] = 1e8
+    while q is not empty:
+        nd = q.front()
+        q.pop()
+        if nd is equal to snk:
+            return flow_intermediate[nd]
+        for i from 0 to size of adj[nd]:
+            to = adj[nd][i]
+            if (cap[nd][to] <= residual_network_cap[nd][to]) or (prev_nd[to] is not equal to -1):
+                continue
+            flow_intermediate[to] = min(flow_intermediate[nd], cap[nd][to] - residual_network_cap[nd][to])
+            q.push(to)
+            prev_nd[to] = nd
+    return 0
+
+Function compute_max_flow(src, snk, n):
+    memset(residual_network_cap, 0, size of residual_network_cap)
+    final_flow = 0
+    while cur_flow = find_augment_path_flow(src, snk, n) is not zero:
+        final_flow += cur_flow
+        update_residual(snk, cur_flow)
+    return final_flow
+
+Function dijkstra(src, n):
+    dist = array of size n + 1 filled with INT_MAX
+    pq = empty priority queue
+    dist[src] = 0
+    pq.push(make_pair(0, src))
+    while pq is not empty:
+        tp = pq.top()
+        pq.pop()
+        local_nd = tp.second
+        local_dist = -1 * tp.first
+        if local_dist > dist[local_nd]:
+            continue
+        for i from 0 to size of adj1[local_nd]:
+            nd = adj1[local_nd][i].first
+            nd_dist = adj1[local_nd][i].second
+            if dist[nd] > nd_dist + local_dist:
+                dist[nd] = nd_dist + local_dist
+                pq.push(make_pair(-1 * dist[nd], nd))
+    return dist
+
+Main():
+    Read n, m from input
+    Assert 1 <= n <= 1000 and 1 <= m <= 400000
+    Initialize variables x, y, w, c
+    Loop from 1 to m:
+        Read x, y, w, c from input
+        Assert 1 <= x <= n, 1 <= y <= n, 1 <= w <= 1000000, 1 <= c <= 1000000
+        Append (y, w) to adj1[x]
+        Append (x, w) to adj1[y]
+        Append ((x, y), (w, c)) to edges
+        Append ((y, x), (w, c)) to edges
+    Initialize residual_network_cap and cap arrays to zero
+    dist1 = dijkstra(1, n)
+    dist2 = dijkstra(n, n)
+    Loop through each edge in edges:
+        Extract u, v, wt, cst from the edge
+        If dist1[n] is equal to (dist1[u] + wt + dist2[v]):
+            Append v - 1 to adj[u - 1]
+            Append u - 1 to adj[v - 1]
+            Add cst to cap[u - 1][v - 1]
+    Print compute_max_flow(0, n - 1, n)
