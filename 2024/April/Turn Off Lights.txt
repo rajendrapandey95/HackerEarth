@@ -1,0 +1,25 @@
+Function solve():
+    Read integers n and k from input
+    Read string s from input
+
+    Initialize variables lo = 1, hi = n, c = 1
+
+    While lo <= hi:
+        mid = (lo + hi) // 2
+        Initialize variables ind = 0, l = 0
+        While ind < n:
+            if s[ind] == '0':
+                Increment ind by 1
+            else:
+                Increment l by 1
+                Increment ind by mid
+        If l <= k:
+            Update c to mid
+            Set hi to mid - 1
+        Else:
+            Set lo to mid + 1
+
+    Print c
+
+Main:
+    Call solve function if the script is run as the main program
