@@ -1,0 +1,44 @@
+Define constant N as 2333
+Define constant eps as 1e-7
+
+Create a structure for pairs of integers and doubles, named PairIntDouble:
+    - Define two fields: first (integer) and second (double)
+
+Create a structure for pairs of integers, named PairInt:
+    - Define two fields: first and second, both integers
+
+Declare an array s of PairIntDouble with size N
+Declare an array t of PairIntDouble with size N
+Declare an array f of PairInt with size N
+Declare integers n and c
+
+Define a function dfs(x, l, r):
+    - If x equals n:
+        - If r is less than eps:
+            - Initialize integer v as 1
+            - Iterate over each element in t:
+                - Update v to be the result of v divided by the greatest common divisor of v and the first field of the current element in t, multiplied by the first field of the current element in t
+            - Set the second field of f at index c to v
+            - Set the first field of f at index c to 1
+            - Iterate over each element in t:
+                - Multiply the first field of f at index c by the first field of the current element in t
+            - Increment c by 1
+    - Else:
+        - If r is less than eps, return
+        - While the second field of s at index l multiplied by (n minus x) is greater than or equal to r minus eps:
+            - Set the x-th element of t to the element at index l of array s
+            - If the second field of s at index l is less than or equal to r plus eps, recursively call dfs with arguments x plus 1, l, and r minus the second field of s at index l
+            - Increment l by 1
+
+Define the main function:
+    - Read an integer T from input
+    - Repeat T times:
+        - Read an integer n from input
+        - Initialize ans as -1
+        - Iterate over each element in f:
+            - If n modulo the second field of the current element is equal to 0:
+                - Set ans to the result of n multiplied by n multiplied by n multiplied by n, divided by the first field of the current element
+                - Break the loop
+        - Print ans followed by a newline character
+
+End of main function
