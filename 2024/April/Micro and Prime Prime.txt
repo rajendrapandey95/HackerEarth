@@ -1,0 +1,37 @@
+function pre():
+    for i from 0 to MAX with step 2:
+        arr[i] = 0
+
+    for i from 3 to MAX with step 2:
+        arr[i] = 1
+
+    for i from 3 to sqrt(MAX) with step 2:
+        if arr[i] is true:
+            for j from i*i to MAX with step (i*2):
+                arr[j] = 0
+
+    prime[2] = 1
+    arr[2] = 1
+
+    for i from 3 to MAX:
+        if arr[i] is true:
+            prime[i] = prime[i - 1] + 1
+        else:
+            prime[i] = prime[i - 1]
+
+    primeprime[0] = 0
+    primeprime[1] = 0
+
+    for i from 2 to MAX:
+        if arr[prime[i]] is true:
+            primeprime[i] = primeprime[i - 1] + 1
+        else:
+            primeprime[i] = primeprime[i - 1]
+
+
+function main():
+    pre()
+    read T
+    repeat T times:
+        read L, R
+        print primeprime[R] - primeprime[L - 1]
