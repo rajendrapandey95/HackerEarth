@@ -1,0 +1,29 @@
+function findMinHeightTrees(n, edges):
+    if n == 1:
+        return [0]  // If there's only one node, it's the root of the MHT
+    
+    // Construct adjacency list
+    adj_list = defaultdict(set)
+    for each edge in edges:
+        u, v = edge
+        adj_list[u].add(v)
+        adj_list[v].add(u)
+
+    // Initialize leaves queue with nodes having only one neighbor
+    leaves = queue()
+    for each node in adj_list:
+        if len(adj_list[node]) == 1:
+            leaves.enqueue(node)
+
+    // Continue removing leaves until 1 or 2 nodes left
+    while n > 2:
+        num_leaves = leaves.size()
+        n -= num_leaves
+        for i from 1 to num_leaves:
+            leaf = leaves.dequeue()
+            neighbor = adj_list[leaf].pop()
+            adj_list[neighbor].remove(leaf)  // Remove the edge
+            if len(adj_list[neighbor]) == 1:
+                leaves.enqueue(neighbor)
+
+    return leaves.to_list()  // Remaining nodes are the roots of MHTs
