@@ -1,0 +1,13 @@
+Initialize an array 'a' with a single element '2'
+While the last element of 'a' is less than 1e13:
+    Calculate the next element by adding:
+        The last element of 'a'
+        The square root of the length of 'a' plus 1, multiplied by the length of 'a'
+        (The length of 'a' plus 1) divided by 2
+    Append the calculated value to 'a'
+Read the number of queries 'q'
+Repeat 'q' times:
+    Read the range 'l' and 'r'
+    Find the leftmost index of 'a' where the value is greater than or equal to 'l'
+    Find the leftmost index of 'a' where the value is greater than or equal to 'r'
+    Print the difference between the indices found in the previous steps, plus 1
