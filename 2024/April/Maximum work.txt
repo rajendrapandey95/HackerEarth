@@ -1,0 +1,44 @@
+Function check(idx, a[], s[]):
+    pills = 0
+    for i from idx to 1:
+        diff = max(0, s[i] - a[i])
+        pills += diff / b + ((diff % b) != 0)
+    if pills <= k:
+        return true
+    return false
+
+Function binary(a[], s[]):
+    low = 1, high = m
+    while high - low > 3:
+        mid = (low + high) / 2
+        if check(mid, a, s):
+            low = mid
+        else:
+            high = mid
+    for i from high to low:
+        if check(i, a, s):
+            return i
+    return 0
+
+Function myrandom(i):
+    return random number in range [0, i)
+
+Main():
+    t = input number of test cases
+    assert 0 < t <= 100
+    for each test case:
+        input k, b
+        assert 0 < k <= 1e5 and 0 < b <= 10
+        input n
+        assert 0 < n <= 1e4
+        input array a of size n
+        assert each element of a satisfies 0 < a[i] <= 1e5
+        sort array a in non-increasing order
+        input m
+        assert 0 < m <= 1e4
+        input array s of size m
+        assert each element of s satisfies 0 < s[i] <= 1e5
+        sort array s in non-decreasing order
+        m = minimum of m and n
+        ans = binary(a, s)
+        output ans
