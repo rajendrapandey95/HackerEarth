@@ -1,0 +1,62 @@
+function par(u):
+    while u is not equal to parent[u]:
+        u = parent[u]
+    return u
+
+function merge(u, v):
+    if _size[v] < _size[u]:
+        parent[v] = u
+        _size[u] += _size[v]
+    else:
+        parent[u] = v
+        _size[v] += _size[u]
+
+function possible(value):
+    for i = 1 to MAX:
+        _size[i] = 1
+        parent[i] = i
+
+    for i = 1 to m:
+        u = a[i].first
+        v = a[i].second
+
+        if abs(val[u] - val[v]) > value:
+            continue
+        else:
+            pu = par(u)
+            pv = par(v)
+
+            if pu is not equal to pv:
+                merge(pu, pv)
+
+    if par(startNode) is equal to par(endNode):
+        return true
+    else:
+        return false
+
+function findSolution():
+    start = 0
+    end = 1000000
+    answer = -1
+
+    while start is less than or equal to end:
+        m = (start + end) / 2
+
+        if possible(m):
+            answer = m
+            end = m - 1
+        else:
+            start = m + 1
+
+    return answer
+
+function main():
+    read n, m, startNode, endNode
+    for i = 1 to m:
+        read u, v
+        append (u, v) to a
+    for i = 1 to n:
+        read val[i]
+    print findSolution()
+
+main()
