@@ -1,0 +1,19 @@
+function calculateSumOfSubarrays(t):
+    for each test case in range t:
+        read n
+        declare arrays pos and neg of size 1000001 and initialize all elements to 0
+        for each element i in range n:
+            read x
+            if x >= 0:
+                increment pos[x]
+            else:
+                increment neg[-x]
+        
+        set ans to 0
+        for each index i in range 1000001:
+            if pos[i] > 0:
+                add (pos[i] * (pos[i] + 1) / 2) to ans
+            if neg[i] > 0:
+                add (neg[i] * (neg[i] + 1) / 2) to ans
+        
+        print ans
