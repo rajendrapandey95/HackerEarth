@@ -1,0 +1,46 @@
+function main():
+    // Define constants
+    mod = 1000000007
+    N = 100005
+
+    // Declare variables
+    n: integer
+    ans: integer
+    fact: array of long long integers
+    inv: array of long long integers
+
+    // Define helper functions
+    function power(x, y): // calculates x^y modulo mod
+        res = 1
+        for each bit in y:
+            if bit is set:
+                res = (res * x) modulo mod
+            x = (x * x) modulo mod
+        return res
+
+    function choose(x, y): // calculates binomial coefficient "y choose x" modulo mod
+        return (fact[y] * inv[x] * inv[y - x]) modulo mod if (x <= y) else 0
+
+    // Initialize fact array
+    fact[0] = 1
+    for i from 1 to N-1:
+        fact[i] = (fact[i-1] * i) modulo mod
+
+    // Calculate inv array
+    inv[N-1] = power(fact[N-1], mod - 2)
+    for i from N-2 down to 0:
+        inv[i] = (inv[i+1] * (i+1)) modulo mod
+
+    // Read input for n
+    read n
+
+    // Loop from i = 0 to n
+    ans = 0
+    for i from 0 to n:
+        ans = ((ans + ((-1)^i) * choose(i, n) * power(2, (n - i) * (n - i - 1) / 2)) modulo mod + mod) modulo mod
+
+    // Output ans
+    print ans
+
+// Call the main function
+main()
