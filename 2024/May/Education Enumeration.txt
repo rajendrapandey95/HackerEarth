@@ -1,0 +1,107 @@
+Define a constant bs = 167772161
+Define a constant mod = bs
+
+Declare global variables:
+    n, k
+    Array v
+    Array ans of size 2^20
+    2D Array S of size 100x100
+    Array D of size 3000
+    Array F of size 3000
+    2D Array DP of size 3000x3000
+    Array fact of size 2^21
+    Map did with key as long long and value as int
+    Map memo with key as long long and value as vector<long long>
+
+Define constants:
+    root = 17
+    root_1 = 29606852
+    root_pw = 2^25
+
+Define function pw(a, b):
+    If b is 0, return 1
+    If b is odd, return a * pw(a, b - 1) % bs
+    Otherwise, return pw(a^2 % bs, b / 2)
+
+Define function reverse(x):
+    Return pw(x, bs - 2)
+
+Define function fft(a, invert):
+    Initialize n as the size of array a
+    Loop from i = 1 to n - 1:
+        Initialize bit as n right shifted by 1
+        Loop while j is greater than or equal to bit:
+            Subtract bit from j
+            Right shift bit by 1
+            Add bit to j
+        If i is less than j, swap a[i] with a[j]
+    Loop for len from 2 to n:
+        Initialize wlen as root_1 if invert is true, otherwise root
+        Loop for i from len to root_pw with step len * 2:
+            Set wlen as wlen * wlen % mod
+        Loop for i from 0 to n - 1 with step len:
+            Initialize w as 1
+            Loop for j from 0 to len / 2 - 1:
+                Initialize u as a[i + j], v as a[i + j + len / 2] * w % mod
+                Update a[i + j] as (u + v) % mod if u + v < mod, otherwise (u + v - mod)
+                Update a[i + j + len / 2] as (u - v) % mod if u - v >= 0, otherwise (u - v + mod)
+                Update w as w * wlen % mod
+    If invert is true:
+        Initialize nrev as reverse of n
+        Loop for i from 0 to n - 1:
+            Update a[i] as a[i] * nrev % mod
+
+Define function mult(a, b):
+    Initialize fa as a copy of array a, fb as a copy of array b
+    Set n as the next power of 2 greater than or equal to max size of fa and fb
+    Resize fa and fb to size n
+    Call fft with fa and false, and fb and false
+    Loop for i from 0 to n - 1:
+        Update fa[i] as fa[i] * fb[i] % bs
+    Call fft with fa and true
+    Return fa
+
+Define function solve(x):
+    If did[x] is true:
+        Return memo[x]
+    Initialize ret as an empty array
+    If x is 1:
+        Loop for i from 0 to k:
+            Append S[k][k - i] to ret
+    Else:
+        Set ret as the result of mult of solve(x / 2) and solve(x - x / 2)
+    Set memo[x] as ret
+    Set did[x] as true
+    Return ret
+
+Define function is_root(x):
+    Initialize prod as 1
+    Loop for i from 1 to 2^25:
+        Update prod as prod * x % bs
+        If prod is 1 and i is less than 2^25, return false
+    Return true if prod is 1, otherwise false
+
+Define function find_root():
+    Loop forever:
+        If is_root(i) is true, return i
+        Increment i by 1
+
+Define main function:
+    Initialize fact[0] as 1
+    Loop for i from 1 to 2^20:
+        Set fact[i] as fact[i - 1] * i % bs
+    Loop for i from 0 to 50:
+        Loop for j from 0 to i:
+            If j is equal to i, set S[i][j] as 1
+            Otherwise, set S[i][j] as S[i - 1][j - 1] + j * S[i - 1][j] % bs
+    Read inputs for n and k
+    Loop for i from 0 to k:
+        Set D[i] as S[k][k - i]
+    Set F as the result of solve(n)
+    Initialize ans as 0
+    Loop for bad from 0 to n * k:
+        If bad is even, update ans as ans + fact[n * k - bad] * F[bad] % bs
+        Otherwise, update ans as ans - fact[n * k - bad] * F[bad] % bs
+        If ans is less than 0, update ans as ans + bs
+    Print ans
+    Return 0
