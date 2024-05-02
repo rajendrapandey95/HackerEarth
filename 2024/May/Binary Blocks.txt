@@ -1,0 +1,25 @@
+function sum(x1, y1, x2, y2):
+    x2 = min(grid size - 1, x2)
+    y2 = min(grid[0] size - 1, y2)
+
+    return grid[x2][y2] - grid[x2][y1 - 1] - grid[x1 - 1][y2] + grid[x1 - 1][y1 - 1]
+
+function solve():
+    read n, m
+    initialize grid with size (n + 1) x (m + 1) with all zeros
+    for i from 1 to n:
+        read string s
+        for j from 1 to m:
+            grid[i][j] = s[j - 1] - '0' + grid[i - 1][j] + grid[i][j - 1] - grid[i - 1][j - 1]
+
+    ret = n * m
+    for k from 2 to max(n, m) - 1:
+        ss = 0
+        for x from 1 to n by k:
+            for y from 1 to m by k:
+                g = sum(x, y, x + k - 1, y + k - 1)
+                ss += min(g, k * k - g)
+        ret = min(ret, ss)
+    print ret
+
+call solve()
