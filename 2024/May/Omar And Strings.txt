@@ -1,0 +1,59 @@
+Declare arrays fail1, fail2, fail3, and freq, each of size 200010
+
+Read the string 's' from input
+Assign the reverse of 's' to the string 'c'
+
+Concatenate 's' and 'c' with a '#' in between and store it in the string 'prefix'
+Concatenate 'c' and 's' with a '#' in between and store it in the string 'suffix'
+
+Initialize fail1, fail2, and fail3 arrays to 0
+
+// Failure function for prefix
+for i from 1 to size of prefix - 1:
+    k = 0
+    while k > 0 and prefix[i] != prefix[k]:
+        k = fail1[k - 1]
+    if prefix[i] == prefix[k]:
+        k++
+    fail1[i] = k
+
+// Failure function for suffix
+for i from 1 to size of suffix - 1:
+    k = 0
+    while k > 0 and suffix[i] != suffix[k]:
+        k = fail2[k - 1]
+    if suffix[i] == suffix[k]:
+        k++
+    fail2[i] = k
+
+Find the longest palindromic substring that ends at the last character of 's' in 'suffix'
+Find the longest palindromic substring that starts at the first character of 's' in 'prefix'
+
+Concatenate these two substrings and store the result in 'omeric'
+
+Print 'omeric'
+
+// Failure function for omeric
+for i from 1 to size of 'omeric' - 1:
+    k = 0
+    while k > 0 and 'omeric'[i] != 'omeric'[k]:
+        k = fail3[k - 1]
+    if 'omeric'[i] == 'omeric'[k]:
+        k++
+    fail3[i] = k
+
+// Counting frequencies of each prefix of 'omeric'
+for i from 0 to size of 'omeric' - 1:
+    Increment freq[fail3[i]] by 1
+
+// Update frequencies
+for i from size of 'omeric' - 1 downto 1:
+    Add freq[i] to freq[fail3[i - 1]]
+
+// Add 1 to frequencies
+for i from size of 'omeric' downto 1:
+    Increment freq[i] by 1
+
+// Print frequencies
+for i from 1 to size of 'omeric':
+    Print freq[i] followed by a space
