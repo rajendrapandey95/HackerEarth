@@ -1,0 +1,53 @@
+function maximumHappinessSubstring(k: int, n: int, s: string) -> int:
+    Define MOD1 = 10^9 + 7
+    Define MOD2 = 10^9 + 9
+    Define N = 10^6 + 9
+
+    Define Hash structure with properties x and y
+
+    Define add function taking two Hash objects a and b, returning their sum
+    Define subtract function taking two Hash objects a and b, returning their difference
+    Define multiply function taking two Hash objects a and b, returning their product
+    Define multiply function taking a Hash object a and an integer v, returning their product
+
+    Declare an array of Hash objects, p, of size N
+    Declare an array of Hash objects, hashes, of size N
+    Declare an array of Hash objects, tmp, of size N
+
+    Initialize p[0] = Hash(1, 1)
+    Initialize hashes[0] = Hash(0, 0)
+
+    Iterate i from 1 to n:
+        Set p[i] = multiply(p[i - 1], 31)
+        Set hashes[i] = add(hashes[i - 1], multiply(p[i], (s[i] - 'a' + 1)))
+
+    Initialize l = 1, r = n, and res = 0
+
+    While l <= r:
+        Set m = (l + r) / 2
+        Initialize sz = 0
+
+        Iterate i from m to n:
+            Set tmp[sz] = multiply(subtract(hashes[i], hashes[i - m]), p[n - i])
+            Increment sz
+
+        Sort the tmp array
+
+        Initialize curCnt = 1 and maxCnt = 1
+
+        Iterate i from 1 to sz - 1:
+            If tmp[i] equals tmp[i - 1]:
+                Increment curCnt
+            Else:
+                Set maxCnt = maximum of curCnt and maxCnt
+                Set curCnt = 1
+
+        Set maxCnt = maximum of curCnt and maxCnt
+
+        If maxCnt >= k:
+            Set res = m
+            Increment l by 1
+        Else:
+            Decrement r by 1
+
+    Return res
