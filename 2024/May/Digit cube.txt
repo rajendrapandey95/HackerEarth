@@ -1,0 +1,16 @@
+Function sum_of_digits(n):
+    Convert n to string
+    Return the sum of digits of n
+
+Initialize array nxt[MAX_S][LOG]
+
+Function main():
+    Read t from input
+    Repeat t times:
+        Read n, k from input
+        Decrement k by 1
+        Set n as sum_of_digits(n)
+        Repeat for i from LOG - 1 to 0:
+            If the i-th bit of k is set:
+                Update n to nxt[n][i]
+        Output n * n * n
