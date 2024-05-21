@@ -1,0 +1,56 @@
+function solve(pos, mini):
+    if pos equals n + 1:
+        return 0
+    if dp[pos][mini] is not -1:
+        return dp[pos][mini]
+    
+    min1 = mintillnow[pos - 1]
+    min2 = mini
+    res = 0
+    
+    if s[pos] > min1 and s[pos] > min2:
+        res = solve(pos + 1, mini)
+    
+    if s[pos] <= min1:
+        res = max(res, solve(pos + 1, min1) + 1)
+        res = max(res, solve(pos + 1, min2) + 1)
+    
+    if s[pos] <= min2 and s[pos] > min1:
+        res = max(res, solve(pos + 1, s[pos]) + 1)
+        res = max(res, solve(pos + 1, min2))
+    
+    dp[pos][mini] = res
+    return res
+
+function compress():
+    temp = empty list
+    f = empty map
+    for i from 1 to n:
+        add s[i] to temp
+    sort temp
+    
+    f[temp[0]] = 1
+    for i from 1 to n - 1:
+        if f[temp[i]] equals 0:
+            f[temp[i]] = f[temp[i - 1]] + 1
+    
+    for i from 1 to n:
+        set s[i] to f[s[i]]
+
+function main():
+    read n from input
+    mini = 5005
+    mintillnow[0] = mini
+    
+    for i from 1 to n:
+        read s[i] from input
+    
+    compress()
+    
+    for i from 1 to n:
+        mini = min(mini, s[i])
+        mintillnow[i] = mini
+    
+    initialize dp with -1
+    
+    print solve(1, 5001)
