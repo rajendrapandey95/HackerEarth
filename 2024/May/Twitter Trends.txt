@@ -1,0 +1,50 @@
+function f(s):
+    idx = 0
+    sz = size(s)
+    assert sz >= 1 and sz <= 140
+    num_hashtags = 0
+    while idx < sz:
+        pp = empty set
+        assert s[idx] == '#' or s[idx] == ' ' or (s[idx] >= 'a' and s[idx] <= 'z') or (s[idx] >= 'A' and s[idx] <= 'Z') or (s[idx] >= '0' and s[idx] <= '9')
+        if s[idx] == '#':
+            num_hashtags = num_hashtags + 1
+            hashTag = ""
+            while idx < sz and s[idx] != ' ':
+                hashTag = hashTag + s[idx]
+                idx = idx + 1
+            assert size(hashTag) >= 1 and size(hashTag) <= 20
+            insert hashTag into hashtags set
+            assert hashTag is not in pp
+            insert hashTag into pp set
+            increment mp[hashTag]
+        else:
+            idx = idx + 1
+    assert num_hashtags >= 1 and num_hashtags <= 3
+
+function func(p1, p2):
+    if p1.first != p2.first:
+        return p1.first > p2.first
+    else:
+        return p1.second < p2.second
+
+function main():
+    n = read integer from input
+    assert n >= 10 and n <= 1000
+
+    read newline character from input // to clear the buffer after reading n
+
+    for i from 1 to n:
+        s = read line from input
+        call f(s)
+
+    v = empty vector of pairs
+
+    for each key-value pair in mp:
+        insert pair into v
+
+    sort v using func as comparison function
+
+    for i from 0 to min(4, size(v)-1):
+        print v[i].second
+
+main()
